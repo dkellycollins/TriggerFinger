@@ -8,10 +8,10 @@ import java.util.Map;
  */
 public abstract class Module {
 
-    private Map<String, Provider> _registry;
+    private Map<String, IProvider> _registry;
 
     public Module() {
-        _registry = new HashMap<String, Provider>();
+        _registry = new HashMap<String, IProvider>();
     }
 
     public <T> T get(String key) {
@@ -23,11 +23,11 @@ public abstract class Module {
 
     protected void init() {}
 
-    protected void register(String key, Provider provider) {
+    protected void register(String key, IProvider provider) {
         _registry.put(key, provider);
     }
 
-    protected <T> Provider<T> singleton(Provider<T> provider) {
+    protected <T> IProvider<T> singleton(IProvider<T> provider) {
         return new SingletonProvider<T>(provider);
     }
 }

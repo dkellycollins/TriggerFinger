@@ -3,7 +3,7 @@ package com.dkellycollins.ioc;
 /**
  * Represents a class that can provide an instance of another class.
  */
-public interface Provider<T> {
+public interface IProvider<T> {
 
     /**
      * Returns an instance of the class.
