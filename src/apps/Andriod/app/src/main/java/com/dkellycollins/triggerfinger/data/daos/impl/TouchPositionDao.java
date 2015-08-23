@@ -4,23 +4,26 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
-import com.dkellycollins.triggerfinger.data.model.impl.Position;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
+import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.util.logger.ILogger;
 
 public class TouchPositionDao implements ITouchPositionDao, View.OnTouchListener {
 
     private final View _view;
-    private final Position _position;
+    private final Vector2 _position;
+    private final ILogger _logger;
 
-    public TouchPositionDao(View view) {
+    public TouchPositionDao(View view, ILogger logger) {
         _view = view;
+        _logger = logger;
 
-        _position = new Position(0, 0);
+        _position = new Vector2();
         _view.setOnTouchListener(this);
     }
 
     @Override
-    public IPosition getLastPosition() {
+    public IVector getLastPosition() {
         return _position;
     }
 
@@ -28,6 +31,8 @@ public class TouchPositionDao implements ITouchPositionDao, View.OnTouchListener
     public boolean onTouch(View v, MotionEvent event) {
         _position.setX(event.getX());
         _position.setY(event.getY());
+
+        _logger.debug("New position: " + _position.toString());
 
         return true;
     }

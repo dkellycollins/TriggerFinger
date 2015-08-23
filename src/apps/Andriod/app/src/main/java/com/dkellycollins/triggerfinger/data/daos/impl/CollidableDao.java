@@ -3,7 +3,7 @@ package com.dkellycollins.triggerfinger.data.daos.impl;
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.entity.impl.Collidable;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IVector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +31,7 @@ public class CollidableDao extends BaseEntityDao implements ICollidableDao {
     }
 
     @Override
-    public int create(IPosition position, float radius) {
+    public int create(IVector position, float radius) {
         int id = getNextId();
         Collidable collidable = new Collidable(id, position, radius);
 
@@ -41,7 +41,7 @@ public class CollidableDao extends BaseEntityDao implements ICollidableDao {
     }
 
     @Override
-    public void update(int id, IPosition position, float radius) {
+    public void update(int id, IVector position, float radius) {
         if(!_store.containsKey(id)) {
             throw new RuntimeException(String.format("Key {0} not found", id));
         }

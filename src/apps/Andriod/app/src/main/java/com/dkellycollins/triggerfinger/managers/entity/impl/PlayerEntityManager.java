@@ -4,7 +4,7 @@ import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IVector;
 
 public class PlayerEntityManager implements IPlayerEntityManager {
 
@@ -27,7 +27,7 @@ public class PlayerEntityManager implements IPlayerEntityManager {
     }
 
     @Override
-    public int create(IPosition position) {
+    public int create(IVector position) {
         int collidableId = _collidableManager.create(position, 5);
         return _dao.create(collidableId);
     }

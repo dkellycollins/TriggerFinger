@@ -9,14 +9,13 @@ import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 import com.dkellycollins.triggerfinger.util.logger.ILogger;
 
-import java.util.List;
-
 public class GameThread extends Thread {
 
     private final SurfaceView _view;
     private final Iterable<IStateManager> _stateManagers;
     private final Iterable<IViewManager> _viewManagers;
     private final ILogger _logger;
+    private final SurfaceHolder _holder;
 
     private boolean _active;
     private long _timestamp;
@@ -29,6 +28,8 @@ public class GameThread extends Thread {
 
         _active = false;
         _timestamp = 0;
+
+        _holder = _view.getHolder();
 
         _logger.debug("Game thread created.");
     }
@@ -77,19 +78,18 @@ public class GameThread extends Thread {
 
     private void render() {
         Canvas canvas = null;
-        SurfaceHolder holder = _view.getHolder();
         try {
-            canvas = holder.lockCanvas();
-
-            synchronized (holder) {
-                canvas.drawColor(Color.BLUE);
+            canvas = _holder.lockCanvas();
+            synchronized (_holder) {
+                canvas.drawColor(Color.CYAN);
                 for(IViewManager viewManager : _viewManagers) {
-                    viewManager.Render(canvas);
+                    viewManager.render(canvas);
                 }
             }
-        } finally {
+        }
+        finally {
             if(canvas != null) {
-                holder.unlockCanvasAndPost(canvas);
+                _holder.unlockCanvasAndPost(canvas);
             }
         }
     }

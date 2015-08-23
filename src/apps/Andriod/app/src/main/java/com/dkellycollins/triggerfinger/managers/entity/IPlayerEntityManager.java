@@ -1,7 +1,7 @@
 package com.dkellycollins.triggerfinger.managers.entity;
 
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IVector;
 
 public interface IPlayerEntityManager {
 
@@ -9,7 +9,7 @@ public interface IPlayerEntityManager {
 
     IPlayer get(int playerId);
 
-    int create(IPosition position);
+    int create(IVector position);
 
     void delete(int playerId);
 }

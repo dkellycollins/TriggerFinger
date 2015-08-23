@@ -1,25 +1,25 @@
 package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
-import com.dkellycollins.triggerfinger.data.model.impl.Position;
+import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 
 public class Collidable implements ICollidable {
 
     private final int _id;
 
-    private Position _position;
+    private Vector2 _position;
     private float _radius;
 
-    public Collidable(int id, IPosition position, float radius) {
+    public Collidable(int id, IVector position, float radius) {
         _id = id;
 
-        _position = new Position(position.getX(), position.getY());
+        _position = new Vector2(position.getX(), position.getY(), 0);
         _radius = radius;
     }
 
     @Override
-    public IPosition getCenter() {
+    public IVector getCenter() {
         return _position;
     }
 
@@ -33,7 +33,7 @@ public class Collidable implements ICollidable {
         return _id;
     }
 
-    public void setCenter(IPosition position) {
+    public void setCenter(IVector position) {
         _position.setX(position.getX());
         _position.setY(position.getY());
     }

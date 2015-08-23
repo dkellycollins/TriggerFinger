@@ -6,8 +6,8 @@ import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
-import com.dkellycollins.triggerfinger.data.model.impl.Position;
+import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 
 public class PlayerStateManager implements IStateManager {
 
@@ -25,14 +25,14 @@ public class PlayerStateManager implements IStateManager {
 
     @Override
     public void init() {
-        _playerId = _playerManager.create(new Position(0, 0));
+        _playerId = _playerManager.create(new Vector2());
     }
 
     @Override
     public void update(long deltaTime) {
         IPlayer player = _playerManager.get(_playerId);
         ICollidable collidable = _collidableManager.retrieve(player.getCollidableId());
-        IPosition newPosition = _touchPositionDao.getLastPosition();
+        IVector newPosition = _touchPositionDao.getLastPosition();
 
         _collidableManager.update(player.getCollidableId(), newPosition, collidable.getRadius());
     }

@@ -17,7 +17,7 @@ public interface IViewManager {
      * Called during the render phase.
      * @param canvas The canvas to render to.
      */
-    void Render(Canvas canvas);
+    void render(Canvas canvas);
 
     void dispose();
 }

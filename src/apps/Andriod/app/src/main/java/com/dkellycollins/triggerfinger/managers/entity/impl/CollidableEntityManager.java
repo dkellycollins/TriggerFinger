@@ -3,7 +3,7 @@ package com.dkellycollins.triggerfinger.managers.entity.impl;
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IVector;
 
 public class CollidableEntityManager implements ICollidableEntityManager {
 
@@ -24,12 +24,12 @@ public class CollidableEntityManager implements ICollidableEntityManager {
     }
 
     @Override
-    public int create(IPosition position, float radius) {
+    public int create(IVector position, float radius) {
         return _dao.create(position, radius);
     }
 
     @Override
-    public void update(int id, IPosition position, float radius) {
+    public void update(int id, IVector position, float radius) {
         _dao.update(id, position, radius);
     }
 

@@ -26,7 +26,7 @@ public class PlayerViewManager implements IViewManager {
     }
 
     @Override
-    public void Render(Canvas canvas) {
+    public void render(Canvas canvas) {
 
         Paint paint = new Paint();
         paint.setColor(Color.GREEN);

@@ -1,7 +1,7 @@
 package com.dkellycollins.triggerfinger.managers.entity;
 
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IVector;
 
 public interface ICollidableEntityManager extends IEntityManager {
 
@@ -9,9 +9,9 @@ public interface ICollidableEntityManager extends IEntityManager {
 
     ICollidable retrieve(int id);
 
-    int create(IPosition position, float radius);
+    int create(IVector position, float radius);
 
-    void update(int id, IPosition position, float radius);
+    void update(int id, IVector position, float radius);
 
     void delete(int id);
 
