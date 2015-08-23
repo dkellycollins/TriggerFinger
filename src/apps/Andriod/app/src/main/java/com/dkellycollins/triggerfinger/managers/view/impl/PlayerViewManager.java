@@ -4,8 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.dkellycollins.triggerfinger.entity.ICollidable;
-import com.dkellycollins.triggerfinger.entity.IPlayer;
+import com.dkellycollins.triggerfinger.data.entity.ICollidable;
+import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
@@ -27,13 +27,13 @@ public class PlayerViewManager implements IViewManager {
 
     @Override
     public void Render(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
 
         Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
         paint.setStyle(Paint.Style.FILL);
 
-        for(IPlayer player : _playerManager.getAll()) {
-            ICollidable collidable = _collidableManager.get(player.getCollidableId());
+        for(IPlayer player : _playerManager.retrieve()) {
+            ICollidable collidable = _collidableManager.retrieve(player.getCollidableId());
 
             canvas.drawCircle(collidable.getCenter().getX(), collidable.getCenter().getY(), collidable.getRadius(), paint);
         }

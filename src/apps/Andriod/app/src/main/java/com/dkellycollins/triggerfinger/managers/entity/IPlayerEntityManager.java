@@ -1,13 +1,11 @@
 package com.dkellycollins.triggerfinger.managers.entity;
 
-import com.dkellycollins.triggerfinger.entity.IPlayer;
-import com.dkellycollins.triggerfinger.model.IPosition;
-
-import java.util.List;
+import com.dkellycollins.triggerfinger.data.entity.IPlayer;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
 
 public interface IPlayerEntityManager {
 
-    Iterable<IPlayer> getAll();
+    Iterable<IPlayer> retrieve();
 
     IPlayer get(int playerId);
 

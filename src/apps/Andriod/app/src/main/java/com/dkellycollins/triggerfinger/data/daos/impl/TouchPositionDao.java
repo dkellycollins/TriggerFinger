@@ -1,11 +1,11 @@
-package com.dkellycollins.triggerfinger.daos.impl;
+package com.dkellycollins.triggerfinger.data.daos.impl;
 
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.dkellycollins.triggerfinger.daos.ITouchPositionDao;
-import com.dkellycollins.triggerfinger.model.impl.Position;
-import com.dkellycollins.triggerfinger.model.IPosition;
+import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
+import com.dkellycollins.triggerfinger.data.model.impl.Position;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
 
 public class TouchPositionDao implements ITouchPositionDao, View.OnTouchListener {
 

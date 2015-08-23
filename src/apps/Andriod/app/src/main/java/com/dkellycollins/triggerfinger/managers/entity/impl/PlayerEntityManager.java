@@ -1,38 +1,35 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
-import com.dkellycollins.triggerfinger.daos.IEntityDao;
-import com.dkellycollins.triggerfinger.entity.IPlayer;
-import com.dkellycollins.triggerfinger.entity.impl.Player;
+import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
+import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
-import com.dkellycollins.triggerfinger.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
 
-public class PlayerEntityManager extends BaseEntityManager implements IPlayerEntityManager {
+public class PlayerEntityManager implements IPlayerEntityManager {
 
-    private final IEntityDao<IPlayer> _dao;
+    private final IPlayerDao _dao;
     private final ICollidableEntityManager _collidableManager;
 
-    public PlayerEntityManager(IEntityDao<IPlayer> dao, ICollidableEntityManager collidableManager) {
+    public PlayerEntityManager(IPlayerDao dao, ICollidableEntityManager collidableManager) {
         _dao = dao;
         _collidableManager = collidableManager;
     }
 
     @Override
-    public Iterable<IPlayer> getAll() {
-        return _dao.getAll();
+    public Iterable<IPlayer> retrieve() {
+        return _dao.retrieve();
     }
 
     @Override
     public IPlayer get(int playerId) {
-        return _dao.get(playerId);
+        return _dao.retrieve(playerId);
     }
 
     @Override
     public int create(IPosition position) {
         int collidableId = _collidableManager.create(position, 5);
-        Player player = new Player(getNextId(), collidableId);
-
-        return _dao.create(player);
+        return _dao.create(collidableId);
     }
 
     @Override

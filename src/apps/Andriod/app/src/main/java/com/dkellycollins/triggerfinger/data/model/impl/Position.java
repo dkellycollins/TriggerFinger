@@ -1,6 +1,6 @@
-package com.dkellycollins.triggerfinger.model.impl;
+package com.dkellycollins.triggerfinger.data.model.impl;
 
-import com.dkellycollins.triggerfinger.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
 
 public class Position implements IPosition {
 

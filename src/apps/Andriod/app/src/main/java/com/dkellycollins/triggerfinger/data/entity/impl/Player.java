@@ -1,6 +1,6 @@
-package com.dkellycollins.triggerfinger.entity.impl;
+package com.dkellycollins.triggerfinger.data.entity.impl;
 
-import com.dkellycollins.triggerfinger.entity.IPlayer;
+import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 
 public class Player implements IPlayer {
 

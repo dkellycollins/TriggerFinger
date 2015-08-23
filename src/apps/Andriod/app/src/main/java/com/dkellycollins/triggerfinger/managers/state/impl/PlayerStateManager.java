@@ -1,13 +1,13 @@
 package com.dkellycollins.triggerfinger.managers.state.impl;
 
-import com.dkellycollins.triggerfinger.daos.ITouchPositionDao;
-import com.dkellycollins.triggerfinger.entity.ICollidable;
-import com.dkellycollins.triggerfinger.entity.IPlayer;
+import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
+import com.dkellycollins.triggerfinger.data.entity.ICollidable;
+import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
-import com.dkellycollins.triggerfinger.model.IPosition;
-import com.dkellycollins.triggerfinger.model.impl.Position;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.impl.Position;
 
 public class PlayerStateManager implements IStateManager {
 
@@ -31,7 +31,7 @@ public class PlayerStateManager implements IStateManager {
     @Override
     public void update(long deltaTime) {
         IPlayer player = _playerManager.get(_playerId);
-        ICollidable collidable = _collidableManager.get(player.getCollidableId());
+        ICollidable collidable = _collidableManager.retrieve(player.getCollidableId());
         IPosition newPosition = _touchPositionDao.getLastPosition();
 
         _collidableManager.update(player.getCollidableId(), newPosition, collidable.getRadius());

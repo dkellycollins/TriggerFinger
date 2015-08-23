@@ -1,8 +1,8 @@
-package com.dkellycollins.triggerfinger.entity.impl;
+package com.dkellycollins.triggerfinger.data.entity.impl;
 
-import com.dkellycollins.triggerfinger.entity.ICollidable;
-import com.dkellycollins.triggerfinger.model.IPosition;
-import com.dkellycollins.triggerfinger.model.impl.Position;
+import com.dkellycollins.triggerfinger.data.entity.ICollidable;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.impl.Position;
 
 public class Collidable implements ICollidable {
 

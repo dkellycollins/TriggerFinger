@@ -1,42 +1,36 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
-import com.dkellycollins.triggerfinger.daos.IEntityDao;
-import com.dkellycollins.triggerfinger.entity.ICollidable;
-import com.dkellycollins.triggerfinger.entity.impl.Collidable;
+import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
+import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
-import com.dkellycollins.triggerfinger.model.IPosition;
+import com.dkellycollins.triggerfinger.data.model.IPosition;
 
-public class CollidableEntityManager extends BaseEntityManager implements ICollidableEntityManager {
+public class CollidableEntityManager implements ICollidableEntityManager {
 
-    private final IEntityDao<ICollidable> _dao;
+    private final ICollidableDao _dao;
 
-    public CollidableEntityManager(IEntityDao<ICollidable> dao) {
+    public CollidableEntityManager(ICollidableDao dao) {
         _dao = dao;
     }
 
     @Override
-    public Iterable<ICollidable> getAll() {
-        return _dao.getAll();
+    public Iterable<ICollidable> retrieve() {
+        return _dao.retrieve();
     }
 
     @Override
-    public ICollidable get(int id) {
-        return _dao.get(id);
+    public ICollidable retrieve(int id) {
+        return _dao.retrieve(id);
     }
 
     @Override
     public int create(IPosition position, float radius) {
-        ICollidable entity = new Collidable(getNextId(), position, radius);
-
-        return _dao.create(entity);
+        return _dao.create(position, radius);
     }
 
     @Override
     public void update(int id, IPosition position, float radius) {
-        Collidable entity = (Collidable) _dao.get(id);
-
-        entity.setCenter(position);
-        entity.setRadius(radius);
+        _dao.update(id, position, radius);
     }
 
     @Override

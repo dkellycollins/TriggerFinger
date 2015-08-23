@@ -1,4 +1,4 @@
-package com.dkellycollins.triggerfinger.entity;
+package com.dkellycollins.triggerfinger.data.entity;
 
 public interface IPlayer extends IEntity {
 
