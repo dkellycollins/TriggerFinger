@@ -5,11 +5,13 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
+import com.dkellycollins.triggerfinger.data.daos.IDeviceInfoDao;
 import com.dkellycollins.triggerfinger.data.daos.IEnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITimerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.CollidableDao;
+import com.dkellycollins.triggerfinger.data.daos.impl.DeviceInfoDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.EnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.PlayerDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.TimerDao;
@@ -36,6 +38,7 @@ import com.dkellycollins.triggerfinger.util.logger.impl.SystemLogWriter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -71,9 +74,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         List<ILogWriter> logWriters = new ArrayList<>();
         logWriters.add(new SystemLogWriter());
         ILogger logger = new Logger(logWriters);
+        Random random = new Random();
 
         //Data
         ITouchPositionDao touchPositionDao = new TouchPositionDao(this, logger);
+        IDeviceInfoDao deviceInfoDao = new DeviceInfoDao(this);
         ICollidableDao collidableDao = new CollidableDao();
         IPlayerDao playerDao = new PlayerDao();
         IEnemyDao enemyDao = new EnemyDao();
@@ -88,7 +93,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //State managers.
         List<IStateManager> stateManagers = new ArrayList<IStateManager>();
         stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao));
-        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager, timerEntityManager));
+        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager, timerEntityManager, deviceInfoDao, random));
         stateManagers.add(new TimerStateManager(timerEntityManager));
 
         //View managers.

@@ -34,6 +34,8 @@ public class EnemyEntityManager implements IEnemyEntityManager {
 
     @Override
     public void delete(int id) {
+        IEnemy enemy = _dao.retrieve(id);
         _dao.delete(id);
+        _collidableManager.delete(enemy.getCollidableId());
     }
 }

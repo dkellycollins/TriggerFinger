@@ -34,6 +34,8 @@ public class PlayerEntityManager implements IPlayerEntityManager {
 
     @Override
     public void delete(int playerId) {
+        IPlayer player = _dao.retrieve(playerId);
         _dao.delete(playerId);
+        _collidableManager.delete(player.getCollidableId());
     }
 }
