@@ -8,18 +8,25 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
+import com.dkellycollins.triggerfinger.data.daos.IEnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.CollidableDao;
+import com.dkellycollins.triggerfinger.data.daos.impl.EnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.PlayerDao;
+import com.dkellycollins.triggerfinger.data.daos.impl.StaticTouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.TouchPositionDao;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
+import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.CollidableEntityManager;
+import com.dkellycollins.triggerfinger.managers.entity.impl.EnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.PlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
+import com.dkellycollins.triggerfinger.managers.state.impl.EnemyStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.PlayerStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
 import com.dkellycollins.triggerfinger.util.logger.ILogWriter;
 import com.dkellycollins.triggerfinger.util.logger.ILogger;
@@ -68,18 +75,22 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         ITouchPositionDao touchPositionDao = new TouchPositionDao(this, logger);
         ICollidableDao collidableDao = new CollidableDao();
         IPlayerDao playerDao = new PlayerDao();
+        IEnemyDao enemyDao = new EnemyDao();
 
         //Entity managers.
         ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
         IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, collidableEntityManager);
+        IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, collidableEntityManager);
 
         //State managers.
         List<IStateManager> stateManagers = new ArrayList<IStateManager>();
         stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao));
+        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager));
 
         //View managers.
         List<IViewManager> viewManagers = new ArrayList<IViewManager>();
         viewManagers.add(new PlayerViewManager(playerEntityManager, collidableEntityManager));
+        viewManagers.add(new EnemyViewManager(enemyEntityManager, collidableEntityManager));
 
         _gameThread = new GameThread(this, stateManagers, viewManagers, logger);
         _gameThread.setActive(true);
