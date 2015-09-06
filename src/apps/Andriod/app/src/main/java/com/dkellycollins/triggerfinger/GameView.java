@@ -1,30 +1,31 @@
 package com.dkellycollins.triggerfinger;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.daos.IEnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
+import com.dkellycollins.triggerfinger.data.daos.ITimerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.CollidableDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.EnemyDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.PlayerDao;
-import com.dkellycollins.triggerfinger.data.daos.impl.StaticTouchPositionDao;
+import com.dkellycollins.triggerfinger.data.daos.impl.TimerDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.TouchPositionDao;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
+import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.CollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.EnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.PlayerEntityManager;
+import com.dkellycollins.triggerfinger.managers.entity.impl.TimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.EnemyStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.PlayerStateManager;
+import com.dkellycollins.triggerfinger.managers.state.impl.TimerStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
@@ -76,16 +77,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         ICollidableDao collidableDao = new CollidableDao();
         IPlayerDao playerDao = new PlayerDao();
         IEnemyDao enemyDao = new EnemyDao();
+        ITimerDao timerDao = new TimerDao();
 
         //Entity managers.
         ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
         IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, collidableEntityManager);
         IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, collidableEntityManager);
+        ITimerEntityManager timerEntityManager = new TimerEntityManager(timerDao);
 
         //State managers.
         List<IStateManager> stateManagers = new ArrayList<IStateManager>();
         stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao));
-        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager));
+        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager, timerEntityManager));
+        stateManagers.add(new TimerStateManager(timerEntityManager));
 
         //View managers.
         List<IViewManager> viewManagers = new ArrayList<IViewManager>();
