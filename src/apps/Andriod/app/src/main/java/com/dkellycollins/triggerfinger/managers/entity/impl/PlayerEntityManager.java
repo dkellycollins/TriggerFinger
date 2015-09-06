@@ -28,7 +28,7 @@ public class PlayerEntityManager implements IPlayerEntityManager {
 
     @Override
     public int create(IVector position) {
-        int collidableId = _collidableManager.create(position, 5);
+        int collidableId = _collidableManager.create(position, 50);
         return _dao.create(collidableId);
     }
 
