@@ -84,10 +84,12 @@ public class GameThread extends Thread {
         Canvas canvas = null;
         try {
             canvas = _holder.lockCanvas();
-            synchronized (_holder) {
-                canvas.drawColor(Color.CYAN);
-                for(IViewManager viewManager : _viewManagers) {
-                    viewManager.render(canvas);
+            if(canvas != null) {
+                synchronized (_holder) {
+                    canvas.drawColor(Color.CYAN);
+                    for(IViewManager viewManager : _viewManagers) {
+                        viewManager.render(canvas);
+                    }
                 }
             }
         }
