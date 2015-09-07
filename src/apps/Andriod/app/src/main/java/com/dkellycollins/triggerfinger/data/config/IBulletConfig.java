@@ -12,4 +12,6 @@ public interface IBulletConfig {
     IVector getVelocity();
 
     int getRespawnRate();
+
+    int getBitmapId();
 }

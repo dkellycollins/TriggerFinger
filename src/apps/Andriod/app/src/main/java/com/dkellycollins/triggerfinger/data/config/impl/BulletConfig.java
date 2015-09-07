@@ -32,4 +32,9 @@ public class BulletConfig extends RConfig implements IBulletConfig {
     public int getRespawnRate() {
         return _context.getResources().getInteger(R.integer.bullet_respawn_rate);
     }
+
+    @Override
+    public int getBitmapId() {
+        return R.drawable.bullet_bitmap;
+    }
 }

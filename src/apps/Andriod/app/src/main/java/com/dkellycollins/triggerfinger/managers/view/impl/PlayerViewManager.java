@@ -52,6 +52,6 @@ public class PlayerViewManager implements IViewManager {
 
     @Override
     public void dispose() {
-
+        _bitmapManager.delete(_playerConfig.getBitmapId());
     }
 }

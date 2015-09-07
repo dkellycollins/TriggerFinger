@@ -49,6 +49,7 @@ import com.dkellycollins.triggerfinger.managers.state.impl.PlayerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.TimerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.WeaponStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.BulletViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.BulletHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.EnemyHitboxViewManager;
@@ -133,6 +134,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         //View managers.
         List<IViewManager> viewManagers = new ArrayList<IViewManager>();
+        viewManagers.add(new BulletViewManager(bulletConfig, bulletEntityManager, collidableEntityManager, bitmapEnityManager));
         viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
         viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
         viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));

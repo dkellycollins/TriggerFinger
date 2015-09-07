@@ -5,4 +5,5 @@
     <item name="bullet_velocity_y" format="float" type="integer">-150.0</item>
     <item name="bullet_velocity_length" format="float" type="integer">1</item>
     <integer name="bullet_respawn_rate">500</integer>
+    <drawable name="bullet_bitmap">@drawable/default_bullet</drawable>
 </resources>
