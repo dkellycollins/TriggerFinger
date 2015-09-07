@@ -63,6 +63,10 @@ public class GameThread extends Thread {
         for(IStateManager stateManager : _stateManagers) {
             stateManager.init();
         }
+
+        for(IViewManager viewManager : _viewManagers) {
+            viewManager.init();
+        }
     }
 
     private void update() {

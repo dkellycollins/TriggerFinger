@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.daos.IDeviceInfoDao;
@@ -12,6 +13,7 @@ import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITimerDao;
 import com.dkellycollins.triggerfinger.data.daos.ITouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.IWeaponDao;
+import com.dkellycollins.triggerfinger.data.daos.impl.BitmapDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.BulletDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.CollidableDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.DeviceInfoDao;
@@ -20,13 +22,14 @@ import com.dkellycollins.triggerfinger.data.daos.impl.PlayerDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.TimerDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.TouchPositionDao;
 import com.dkellycollins.triggerfinger.data.daos.impl.WeaponDao;
-import com.dkellycollins.triggerfinger.data.entity.IBullet;
+import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
+import com.dkellycollins.triggerfinger.managers.entity.impl.BitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.BulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.CollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.EnemyEntityManager;
@@ -40,9 +43,10 @@ import com.dkellycollins.triggerfinger.managers.state.impl.PlayerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.TimerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.WeaponStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
-import com.dkellycollins.triggerfinger.managers.view.impl.BulletViewManager;
-import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.debug.BulletHitboxViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.debug.EnemyHitboxViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.debug.PlayerHitboxViewManager;
 import com.dkellycollins.triggerfinger.util.logger.ILogWriter;
 import com.dkellycollins.triggerfinger.util.logger.ILogger;
 import com.dkellycollins.triggerfinger.util.logger.impl.Logger;
@@ -97,6 +101,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         ITimerDao timerDao = new TimerDao();
         IWeaponDao weaponDao = new WeaponDao();
         IBulletDao bulletDao = new BulletDao();
+        IBitmapDao bitmapDao = new BitmapDao(getContext());
 
         //Entity managers.
         ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
@@ -105,6 +110,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         IBulletEntityManager bulletEntityManager = new BulletEntityManager(bulletDao, collidableEntityManager);
         IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, collidableEntityManager, weaponEntityManager);
         IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, collidableEntityManager);
+        IBitmapEntityManager bitmapEnityManager = new BitmapEntityManager(bitmapDao);
 
         //State managers.
         List<IStateManager> stateManagers = new ArrayList<IStateManager>();
@@ -116,9 +122,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
         //View managers.
         List<IViewManager> viewManagers = new ArrayList<IViewManager>();
-        viewManagers.add(new PlayerViewManager(playerEntityManager, collidableEntityManager));
-        viewManagers.add(new EnemyViewManager(enemyEntityManager, collidableEntityManager));
-        viewManagers.add(new BulletViewManager(bulletEntityManager, collidableEntityManager));
+        viewManagers.add(new PlayerViewManager(playerEntityManager, collidableEntityManager, bitmapEnityManager));
+        viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
+        viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
+        viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));
 
         _gameThread = new GameThread(this, stateManagers, viewManagers, logger);
         _gameThread.setActive(true);
