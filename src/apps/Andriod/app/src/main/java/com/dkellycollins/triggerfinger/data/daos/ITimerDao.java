@@ -7,9 +7,9 @@ public interface ITimerDao {
     Iterable<ITimer> retrieve();
     ITimer retrieve(int id);
 
-    int create(int setTime, int currentTime);
+    int create(int setTime, int currentTime, boolean isRunning);
 
-    void update(int id, int currentTime);
+    void update(int id, int currentTime, boolean isRunning);
 
     void delete(int id);
 }

@@ -25,9 +25,9 @@ public class TimerDao extends BaseEntityDao implements ITimerDao {
     }
 
     @Override
-    public int create(int setTime, int currentTime) {
+    public int create(int setTime, int currentTime, boolean isRunning) {
         int id = getNextId();
-        Timer timer = new Timer(id, setTime, currentTime);
+        Timer timer = new Timer(id, setTime, currentTime, isRunning);
 
         _store.put(id, timer);
 
@@ -35,10 +35,11 @@ public class TimerDao extends BaseEntityDao implements ITimerDao {
     }
 
     @Override
-    public void update(int id, int currentTime) {
+    public void update(int id, int currentTime, boolean isRunning) {
         Timer timer = _store.get(id);
 
         timer.setCurrentTime(currentTime);
+        timer.setRunning(isRunning);
     }
 
     @Override

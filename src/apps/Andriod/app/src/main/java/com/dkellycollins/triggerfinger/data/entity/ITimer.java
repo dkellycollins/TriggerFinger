@@ -5,6 +5,8 @@ package com.dkellycollins.triggerfinger.data.entity;
  */
 public interface ITimer extends IEntity {
 
+    boolean isRunning();
+
     int getSetTime();
 
     int getCurrentTime();

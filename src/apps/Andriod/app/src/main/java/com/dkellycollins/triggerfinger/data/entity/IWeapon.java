@@ -1,9 +1,8 @@
 package com.dkellycollins.triggerfinger.data.entity;
 
-public interface IPlayer extends IEntity {
+public interface IWeapon extends IEntity {
 
     int getCollidableId();
 
-    int getWeaponId();
-
+    int getTimerId();
 }

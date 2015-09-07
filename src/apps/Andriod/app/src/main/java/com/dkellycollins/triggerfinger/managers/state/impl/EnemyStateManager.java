@@ -40,7 +40,7 @@ public class EnemyStateManager implements IStateManager {
 
     @Override
     public void init() {
-        _timerId = _timerManager.create(10000);
+        _timerId = _timerManager.create(10000, true);
         createEnemy();
     }
 
@@ -52,7 +52,7 @@ public class EnemyStateManager implements IStateManager {
             createEnemy();
             _timerManager.reset(_timerId);
         }
-        
+
         for(IEnemy enemy : _enemyManager.retrieve()) {
             ICollidable position = _collidableManager.retrieve(enemy.getCollidableId());
 

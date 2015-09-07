@@ -7,7 +7,7 @@ public interface IPlayerEntityManager {
 
     Iterable<IPlayer> retrieve();
 
-    IPlayer get(int playerId);
+    IPlayer retrieve(int playerId);
 
     int create(IVector position);
 

@@ -20,6 +20,10 @@ public class TimerStateManager implements IStateManager {
     @Override
     public void update(long deltaTime) {
         for(ITimer timer : _timerManager.retrieve()) {
+            if(!timer.isRunning()) {
+                continue;
+            }
+
             int currentTime = (int)Math.max(timer.getCurrentTime() - deltaTime, 0);
             _timerManager.update(timer.getId(), currentTime);
         }

@@ -23,19 +23,37 @@ public class TimerEntityManager implements ITimerEntityManager {
     }
 
     @Override
-    public int create(int setTime) {
-        return _dao.create(setTime, setTime);
+    public int create(int setTime, boolean isRunning) {
+        return _dao.create(setTime, setTime, isRunning);
     }
 
     @Override
     public void update(int id, int currentTime) {
-        _dao.update(id, currentTime);
+        ITimer timer = _dao.retrieve(id);
+        _dao.update(id, currentTime, timer.isRunning());
+    }
+
+    @Override
+    public void update(int id, int currentTime, boolean isRunning) {
+        _dao.update(id, currentTime, isRunning);
     }
 
     @Override
     public void reset(int id) {
         ITimer timer = _dao.retrieve(id);
-        _dao.update(timer.getId(), timer.getSetTime());
+        _dao.update(timer.getId(), timer.getSetTime(), timer.isRunning());
+    }
+
+    @Override
+    public void start(int id) {
+        ITimer timer = _dao.retrieve(id);
+        _dao.update(timer.getId(), timer.getCurrentTime(), true);
+    }
+
+    @Override
+    public void pause(int id) {
+        ITimer timer = _dao.retrieve(id);
+        _dao.update(timer.getId(), timer.getCurrentTime(), false);
     }
 
     @Override

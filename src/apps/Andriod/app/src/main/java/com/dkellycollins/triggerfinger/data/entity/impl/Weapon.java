@@ -1,18 +1,16 @@
 package com.dkellycollins.triggerfinger.data.entity.impl;
 
-import com.dkellycollins.triggerfinger.data.entity.IPlayer;
+import com.dkellycollins.triggerfinger.data.entity.IWeapon;
 
-public class Player implements IPlayer {
-
+public class Weapon implements IWeapon {
     private final int _id;
     private final int _collidableId;
+    private final int _timerId;
 
-    private int _weaponId;
-
-    public Player(int id, int collidableId, int weaponId) {
+    public Weapon(int id, int collidableId, int timerId) {
         _id = id;
         _collidableId = collidableId;
-        _weaponId = weaponId;
+        _timerId = timerId;
     }
 
     @Override
@@ -21,16 +19,12 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public int getWeaponId() {
-        return _weaponId;
+    public int getTimerId() {
+        return _timerId;
     }
 
     @Override
     public int getId() {
         return _id;
-    }
-
-    public void setWeaponId(int weaponId) {
-        _weaponId = weaponId;
     }
 }
