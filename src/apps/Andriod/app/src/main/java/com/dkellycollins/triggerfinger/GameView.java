@@ -4,6 +4,12 @@ import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.dkellycollins.triggerfinger.data.config.IBulletConfig;
+import com.dkellycollins.triggerfinger.data.config.IEnemyConfig;
+import com.dkellycollins.triggerfinger.data.config.IPlayerConfig;
+import com.dkellycollins.triggerfinger.data.config.impl.BulletConfig;
+import com.dkellycollins.triggerfinger.data.config.impl.EnemyConfig;
+import com.dkellycollins.triggerfinger.data.config.impl.PlayerConfig;
 import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
@@ -92,6 +98,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         ILogger logger = new Logger(logWriters);
         Random random = new Random();
 
+        //Config
+        IBulletConfig bulletConfig = new BulletConfig(getContext());
+        IEnemyConfig enemyConfig = new EnemyConfig(getContext());
+        IPlayerConfig playerConfig = new PlayerConfig(getContext());
+
         //Data
         ITouchPositionDao touchPositionDao = new TouchPositionDao(this);
         IDeviceInfoDao deviceInfoDao = new DeviceInfoDao(this);
@@ -106,23 +117,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //Entity managers.
         ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
         ITimerEntityManager timerEntityManager = new TimerEntityManager(timerDao);
-        IWeaponEntityManager weaponEntityManager = new WeaponEntityManager(weaponDao, timerEntityManager);
-        IBulletEntityManager bulletEntityManager = new BulletEntityManager(bulletDao, collidableEntityManager);
-        IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, collidableEntityManager, weaponEntityManager);
-        IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, collidableEntityManager);
+        IWeaponEntityManager weaponEntityManager = new WeaponEntityManager(weaponDao, bulletConfig, timerEntityManager);
+        IBulletEntityManager bulletEntityManager = new BulletEntityManager(bulletDao, bulletConfig, collidableEntityManager);
+        IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, playerConfig, collidableEntityManager, weaponEntityManager);
+        IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, enemyConfig, collidableEntityManager);
         IBitmapEntityManager bitmapEnityManager = new BitmapEntityManager(bitmapDao);
 
         //State managers.
         List<IStateManager> stateManagers = new ArrayList<IStateManager>();
         stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao, weaponEntityManager, timerEntityManager));
-        stateManagers.add(new EnemyStateManager(enemyEntityManager, collidableEntityManager, timerEntityManager, deviceInfoDao, random));
+        stateManagers.add(new EnemyStateManager(enemyEntityManager, enemyConfig, collidableEntityManager, timerEntityManager, deviceInfoDao, random));
         stateManagers.add(new TimerStateManager(timerEntityManager));
         stateManagers.add(new WeaponStateManager(weaponEntityManager, timerEntityManager, bulletEntityManager, collidableEntityManager));
         stateManagers.add(new BulletStateManager(bulletEntityManager, collidableEntityManager, deviceInfoDao));
 
         //View managers.
         List<IViewManager> viewManagers = new ArrayList<IViewManager>();
-        viewManagers.add(new PlayerViewManager(playerEntityManager, collidableEntityManager, bitmapEnityManager));
+        viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
         viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
         viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
         viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));

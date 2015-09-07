@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
+import com.dkellycollins.triggerfinger.data.config.IBulletConfig;
 import com.dkellycollins.triggerfinger.data.daos.IWeaponDao;
 import com.dkellycollins.triggerfinger.data.entity.IWeapon;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
@@ -8,10 +9,12 @@ import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
 public class WeaponEntityManager implements IWeaponEntityManager {
 
     private final IWeaponDao _dao;
+    private final IBulletConfig _bulletConfig;
     private final ITimerEntityManager _timerManager;
 
-    public WeaponEntityManager(IWeaponDao dao, ITimerEntityManager timerManager) {
+    public WeaponEntityManager(IWeaponDao dao, IBulletConfig bulletConfig, ITimerEntityManager timerManager) {
         _dao = dao;
+        _bulletConfig = bulletConfig;
         _timerManager = timerManager;
     }
 
@@ -27,7 +30,7 @@ public class WeaponEntityManager implements IWeaponEntityManager {
 
     @Override
     public int create(int collidableId) {
-        int timerId = _timerManager.create(5000, true);
+        int timerId = _timerManager.create(_bulletConfig.getRespawnRate(), true);
         int weaponId = _dao.create(collidableId, timerId);
 
         return weaponId;

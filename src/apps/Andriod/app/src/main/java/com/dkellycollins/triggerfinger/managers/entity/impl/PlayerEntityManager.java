@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
+import com.dkellycollins.triggerfinger.data.config.IPlayerConfig;
 import com.dkellycollins.triggerfinger.data.daos.IPlayerDao;
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
@@ -10,11 +11,13 @@ import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
 public class PlayerEntityManager implements IPlayerEntityManager {
 
     private final IPlayerDao _dao;
+    private final IPlayerConfig _config;
     private final ICollidableEntityManager _collidableManager;
     private final IWeaponEntityManager _weaponManager;
 
-    public PlayerEntityManager(IPlayerDao dao, ICollidableEntityManager collidableManager, IWeaponEntityManager weaponManager) {
+    public PlayerEntityManager(IPlayerDao dao, IPlayerConfig config, ICollidableEntityManager collidableManager, IWeaponEntityManager weaponManager) {
         _dao = dao;
+        _config = config;
         _collidableManager = collidableManager;
         _weaponManager = weaponManager;
     }
@@ -31,7 +34,7 @@ public class PlayerEntityManager implements IPlayerEntityManager {
 
     @Override
     public int create(IVector position) {
-        int collidableId = _collidableManager.create(position, 50);
+        int collidableId = _collidableManager.create(position, _config.getCollidableRadius());
         int weaponId = _weaponManager.create(collidableId);
 
         return _dao.create(collidableId, weaponId);

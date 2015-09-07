@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
+import com.dkellycollins.triggerfinger.data.config.IBulletConfig;
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.model.IVector;
@@ -13,10 +14,12 @@ import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 public class BulletEntityManager implements IBulletEntityManager {
 
     private final IBulletDao _dao;
+    private final IBulletConfig _config;
     private final ICollidableEntityManager _collidableManager;
 
-    public BulletEntityManager(IBulletDao dao, ICollidableEntityManager collidableManager) {
+    public BulletEntityManager(IBulletDao dao, IBulletConfig config, ICollidableEntityManager collidableManager) {
         _dao = dao;
+        _config = config;
         _collidableManager = collidableManager;
     }
 
@@ -32,8 +35,8 @@ public class BulletEntityManager implements IBulletEntityManager {
 
     @Override
     public int create(IVector startingPosition) {
-        int collidableId = _collidableManager.create(startingPosition, 20);
-        IVector velocity = new Vector2(0, -10, 1);
+        int collidableId = _collidableManager.create(startingPosition, _config.getCollidableRadius());
+        IVector velocity = _config.getVelocity();
 
         return _dao.create(collidableId, velocity);
     }

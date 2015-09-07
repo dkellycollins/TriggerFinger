@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.state.impl;
 
+import com.dkellycollins.triggerfinger.data.config.IEnemyConfig;
 import com.dkellycollins.triggerfinger.data.daos.IDeviceInfoDao;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
@@ -20,6 +21,7 @@ import java.util.Random;
 public class EnemyStateManager implements IStateManager {
 
     private final IEnemyEntityManager _enemyManager;
+    private final IEnemyConfig _enemyConfig;
     private final ICollidableEntityManager _collidableManager;
     private final ITimerEntityManager _timerManager;
     private final IDeviceInfoDao _deviceDao;
@@ -28,8 +30,9 @@ public class EnemyStateManager implements IStateManager {
     private int _timerId;
     private List<Integer> _toDelete;
 
-    public EnemyStateManager(IEnemyEntityManager enemyManager, ICollidableEntityManager collidableManager, ITimerEntityManager timerManager, IDeviceInfoDao deviceDao, Random random) {
+    public EnemyStateManager(IEnemyEntityManager enemyManager, IEnemyConfig enemyConfig, ICollidableEntityManager collidableManager, ITimerEntityManager timerManager, IDeviceInfoDao deviceDao, Random random) {
         _enemyManager = enemyManager;
+        _enemyConfig = enemyConfig;
         _collidableManager = collidableManager;
         _timerManager = timerManager;
         _deviceDao = deviceDao;
@@ -40,7 +43,7 @@ public class EnemyStateManager implements IStateManager {
 
     @Override
     public void init() {
-        _timerId = _timerManager.create(10000, true);
+        _timerId = _timerManager.create(_enemyConfig.getRespawnRate(), true);
         createEnemy();
     }
 
@@ -60,7 +63,8 @@ public class EnemyStateManager implements IStateManager {
                 _toDelete.add(enemy.getId());
             }
             else {
-                _collidableManager.update(position.getId(), new Vector2(position.getCenter().getX(), position.getCenter().getY() + 10, 0), position.getRadius());
+                float dY = _enemyConfig.getDeltaY() * ((float)deltaTime / 1000);
+                _collidableManager.update(position.getId(), new Vector2(position.getCenter().getX(), position.getCenter().getY() + dY, 0), position.getRadius());
             }
         }
 

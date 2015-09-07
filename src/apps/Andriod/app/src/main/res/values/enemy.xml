@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="enemy_respawn_rate">1000</integer>
+    <item name="enemy_collidable_radius" format="float" type="integer">50</item>
+    <item name="enemy_delta_y" format="float" type="integer">100</item>
+</resources>

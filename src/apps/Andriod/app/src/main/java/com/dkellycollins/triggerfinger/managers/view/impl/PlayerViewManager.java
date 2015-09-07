@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
 import com.dkellycollins.triggerfinger.R;
+import com.dkellycollins.triggerfinger.data.config.IPlayerConfig;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.data.model.ViewLayer;
@@ -15,11 +16,13 @@ import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 public class PlayerViewManager implements IViewManager {
 
     private final IPlayerEntityManager _playerManager;
+    private final IPlayerConfig _playerConfig;
     private final ICollidableEntityManager _collidableManager;
     private final IBitmapEntityManager _bitmapManager;
 
-    public PlayerViewManager(IPlayerEntityManager playerManager, ICollidableEntityManager collidableManager, IBitmapEntityManager bitmapManager) {
+    public PlayerViewManager(IPlayerEntityManager playerManager, IPlayerConfig playerConfig, ICollidableEntityManager collidableManager, IBitmapEntityManager bitmapManager) {
         _playerManager = playerManager;
+        _playerConfig = playerConfig;
         _collidableManager = collidableManager;
         _bitmapManager = bitmapManager;
     }
@@ -31,14 +34,14 @@ public class PlayerViewManager implements IViewManager {
 
     @Override
     public void init() {
-        _bitmapManager.load(R.drawable.shuttle);
+        _bitmapManager.load(_playerConfig.getBitmapId());
     }
 
     @Override
     public void render(Canvas canvas) {
         for(IPlayer player : _playerManager.retrieve()) {
             ICollidable collidable = _collidableManager.retrieve(player.getCollidableId());
-            Bitmap bitmap = _bitmapManager.retrieve(R.drawable.shuttle);
+            Bitmap bitmap = _bitmapManager.retrieve(_playerConfig.getBitmapId());
 
             float left = collidable.getCenter().getX() - collidable.getRadius();
             float top = collidable.getCenter().getY() - collidable.getRadius();

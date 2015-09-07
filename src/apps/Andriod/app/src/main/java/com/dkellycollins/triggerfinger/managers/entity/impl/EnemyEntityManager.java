@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.entity.impl;
 
+import com.dkellycollins.triggerfinger.data.config.IEnemyConfig;
 import com.dkellycollins.triggerfinger.data.daos.IEnemyDao;
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 import com.dkellycollins.triggerfinger.data.model.IVector;
@@ -9,10 +10,12 @@ import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 public class EnemyEntityManager implements IEnemyEntityManager {
 
     private final IEnemyDao _dao;
+    private final IEnemyConfig _config;
     private final ICollidableEntityManager _collidableManager;
 
-    public EnemyEntityManager(IEnemyDao dao, ICollidableEntityManager collidableManager) {
+    public EnemyEntityManager(IEnemyDao dao, IEnemyConfig config, ICollidableEntityManager collidableManager) {
         _dao = dao;
+        _config = config;
         _collidableManager = collidableManager;
     }
 
@@ -28,7 +31,7 @@ public class EnemyEntityManager implements IEnemyEntityManager {
 
     @Override
     public int create(IVector position) {
-        int collidableId = _collidableManager.create(position, 50);
+        int collidableId = _collidableManager.create(position, _config.getCollidableRadius());
         return _dao.create(collidableId);
     }
 
