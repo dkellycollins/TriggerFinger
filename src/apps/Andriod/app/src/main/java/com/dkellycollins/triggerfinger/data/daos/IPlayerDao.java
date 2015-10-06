@@ -8,6 +8,7 @@ public interface IPlayerDao {
 
     Iterable<IPlayer> retrieve();
     IPlayer retrieve(int id);
+    IPlayer playerOne();
 
     void update(int id, int weaponId);
 

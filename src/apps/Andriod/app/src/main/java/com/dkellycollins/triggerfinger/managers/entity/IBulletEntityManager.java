@@ -10,6 +10,7 @@ public interface IBulletEntityManager {
 
     Iterable<IBullet> retrieve();
     IBullet retrieve(int id);
+    IBullet retrieveByCollidable(int collidableId);
 
     int create(IVector startingPosition);
 

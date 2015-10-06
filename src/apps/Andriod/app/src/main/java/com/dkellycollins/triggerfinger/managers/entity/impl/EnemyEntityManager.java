@@ -25,8 +25,19 @@ public class EnemyEntityManager implements IEnemyEntityManager {
     }
 
     @Override
-    public IEnemy get(int id) {
+    public IEnemy retrieve(int id) {
         return _dao.retrieve(id);
+    }
+
+    @Override
+    public IEnemy retrieveByCollidable(int collidableId) {
+        for(IEnemy enemy : _dao.retrieve()) {
+            if(enemy.getCollidableId() == collidableId) {
+                return enemy;
+            }
+        }
+
+        return null;
     }
 
     @Override

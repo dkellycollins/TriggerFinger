@@ -9,6 +9,7 @@ import java.util.HashMap;
 public class PlayerDao extends BaseEntityDao implements IPlayerDao {
 
     private final HashMap<Integer, Player> _store;
+    private Player _playerOne;
 
     public PlayerDao() {
         _store = new HashMap<>();
@@ -20,6 +21,9 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
         Player player = new Player(id, collidableId, weaponId);
 
         _store.put(id, player);
+        if(_playerOne == null) {
+            _playerOne = player;
+        }
 
         return id;
     }
@@ -36,6 +40,11 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
         }
 
         return _store.get(id);
+    }
+
+    @Override
+    public IPlayer playerOne() {
+        return _playerOne;
     }
 
     @Override
@@ -56,5 +65,8 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
         }
 
         _store.remove(id);
+        if(_playerOne.getId() == id) {
+            _playerOne = null;
+        }
     }
 }

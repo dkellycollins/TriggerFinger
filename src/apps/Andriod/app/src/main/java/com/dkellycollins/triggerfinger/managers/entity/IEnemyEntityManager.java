@@ -6,8 +6,8 @@ import com.dkellycollins.triggerfinger.data.model.IVector;
 public interface IEnemyEntityManager {
 
     Iterable<IEnemy> retrieve();
-
-    IEnemy get(int playerId);
+    IEnemy retrieve(int enemyId);
+    IEnemy retrieveByCollidable(int collidableId);
 
     int create(IVector position);
 

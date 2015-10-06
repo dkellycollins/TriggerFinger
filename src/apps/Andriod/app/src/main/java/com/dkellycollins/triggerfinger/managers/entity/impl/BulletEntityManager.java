@@ -8,9 +8,6 @@ import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 
-/**
- * Created by Devin on 9/6/2015.
- */
 public class BulletEntityManager implements IBulletEntityManager {
 
     private final IBulletDao _dao;
@@ -31,6 +28,17 @@ public class BulletEntityManager implements IBulletEntityManager {
     @Override
     public IBullet retrieve(int id) {
         return _dao.retrieve(id);
+    }
+
+    @Override
+    public IBullet retrieveByCollidable(int collidableId) {
+        for(IBullet bullet : _dao.retrieve()) {
+            if(bullet.getCollidableId() == collidableId) {
+                return bullet;
+            }
+        }
+
+        return null;
     }
 
     @Override

@@ -66,9 +66,12 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     private GameThread _gameThread;
+    private Module _module;
 
     public GameView(Context context) {
         super(context);
+
+        _module = new Module(this, context);
 
         getHolder().addCallback(this);
     }
@@ -93,54 +96,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             return;
         }
 
-        //Util
-        List<ILogWriter> logWriters = new ArrayList<>();
-        logWriters.add(new SystemLogWriter());
-        ILogger logger = new Logger(logWriters);
-        Random random = new Random();
-
-        //Config
-        IBulletConfig bulletConfig = new BulletConfig(getContext());
-        IEnemyConfig enemyConfig = new EnemyConfig(getContext());
-        IPlayerConfig playerConfig = new PlayerConfig(getContext());
-
-        //Data
-        ITouchPositionDao touchPositionDao = new TouchPositionDao(this);
-        IDeviceInfoDao deviceInfoDao = new DeviceInfoDao(this);
-        ICollidableDao collidableDao = new CollidableDao();
-        IPlayerDao playerDao = new PlayerDao();
-        IEnemyDao enemyDao = new EnemyDao();
-        ITimerDao timerDao = new TimerDao();
-        IWeaponDao weaponDao = new WeaponDao();
-        IBulletDao bulletDao = new BulletDao();
-        IBitmapDao bitmapDao = new BitmapDao(getContext());
-
-        //Entity managers.
-        ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
-        ITimerEntityManager timerEntityManager = new TimerEntityManager(timerDao);
-        IWeaponEntityManager weaponEntityManager = new WeaponEntityManager(weaponDao, bulletConfig, timerEntityManager);
-        IBulletEntityManager bulletEntityManager = new BulletEntityManager(bulletDao, bulletConfig, collidableEntityManager);
-        IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, playerConfig, collidableEntityManager, weaponEntityManager);
-        IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, enemyConfig, collidableEntityManager);
-        IBitmapEntityManager bitmapEnityManager = new BitmapEntityManager(bitmapDao);
-
-        //State managers.
-        List<IStateManager> stateManagers = new ArrayList<IStateManager>();
-        stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao, weaponEntityManager, timerEntityManager));
-        stateManagers.add(new EnemyStateManager(enemyEntityManager, enemyConfig, collidableEntityManager, timerEntityManager, deviceInfoDao, random));
-        stateManagers.add(new TimerStateManager(timerEntityManager));
-        stateManagers.add(new WeaponStateManager(weaponEntityManager, timerEntityManager, bulletEntityManager, collidableEntityManager));
-        stateManagers.add(new BulletStateManager(bulletEntityManager, collidableEntityManager, deviceInfoDao));
-
-        //View managers.
-        List<IViewManager> viewManagers = new ArrayList<IViewManager>();
-        viewManagers.add(new BulletViewManager(bulletConfig, bulletEntityManager, collidableEntityManager, bitmapEnityManager));
-        viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
-        viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
-        viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
-        viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));
-
-        _gameThread = new GameThread(this, stateManagers, viewManagers, logger);
+        _gameThread = new GameThread(this, _module.getStateManagers(), _module.getViewManagers(), _module.getLogger());
         _gameThread.setActive(true);
         _gameThread.start();
     }

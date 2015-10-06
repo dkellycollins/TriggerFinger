@@ -33,6 +33,11 @@ public class PlayerEntityManager implements IPlayerEntityManager {
     }
 
     @Override
+    public IPlayer retrievePlayerOne() {
+        return _dao.playerOne();
+    }
+
+    @Override
     public int create(IVector position) {
         int collidableId = _collidableManager.create(position, _config.getCollidableRadius());
         int weaponId = _weaponManager.create(collidableId);
