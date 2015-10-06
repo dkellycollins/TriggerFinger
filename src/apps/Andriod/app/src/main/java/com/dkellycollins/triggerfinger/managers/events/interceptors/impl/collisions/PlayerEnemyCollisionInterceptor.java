@@ -17,7 +17,7 @@ public class PlayerEnemyCollisionInterceptor implements ICollisionInterceptor {
     }
 
     @Override
-    public void OnCollision(int item1, int item2) {
+    public void onCollision(int item1, int item2) {
         IPlayer player = getPlayer(item1, item2);
         IEnemy enemy = getEnemy(item1, item2);
 

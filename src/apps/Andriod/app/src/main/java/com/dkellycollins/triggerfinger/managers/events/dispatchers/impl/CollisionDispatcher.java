@@ -13,7 +13,7 @@ public class CollisionDispatcher implements ICollisionDispatcher {
 
     public void onCollision(int item1, int item2) {
         for(ICollisionInterceptor interceptor : _interceptors) {
-            interceptor.OnCollision(item1, item2);
+            interceptor.onCollision(item1, item2);
         }
     }
 }

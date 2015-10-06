@@ -17,7 +17,7 @@ public class BulletEnemyCollisionInterceptor implements ICollisionInterceptor {
     }
 
     @Override
-    public void OnCollision(int item1, int item2) {
+    public void onCollision(int item1, int item2) {
         IBullet bullet = getBullet(item1, item2);
         IEnemy enemy = getEnemy(item1, item2);
 
