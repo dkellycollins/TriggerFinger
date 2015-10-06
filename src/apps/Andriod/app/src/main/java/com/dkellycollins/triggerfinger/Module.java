@@ -5,9 +5,11 @@ import android.view.View;
 
 import com.dkellycollins.triggerfinger.data.config.IBulletConfig;
 import com.dkellycollins.triggerfinger.data.config.IEnemyConfig;
+import com.dkellycollins.triggerfinger.data.config.IFontConfig;
 import com.dkellycollins.triggerfinger.data.config.IPlayerConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.BulletConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.EnemyConfig;
+import com.dkellycollins.triggerfinger.data.config.impl.FontConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.PlayerConfig;
 import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
@@ -45,8 +47,6 @@ import com.dkellycollins.triggerfinger.managers.events.dispatchers.ICollisionDis
 import com.dkellycollins.triggerfinger.managers.events.dispatchers.impl.CollisionDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.interceptors.ICollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.BulletEnemyCollisionInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.BulletPlayerCollisionInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.PlayerEnemyCollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.BulletStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.CollisionStateManager;
@@ -55,9 +55,9 @@ import com.dkellycollins.triggerfinger.managers.state.impl.PlayerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.TimerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.WeaponStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
-import com.dkellycollins.triggerfinger.managers.view.impl.BulletViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.ScoreViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.BulletHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.EnemyHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.PlayerHitboxViewManager;
@@ -67,6 +67,8 @@ import com.dkellycollins.triggerfinger.util.logger.impl.Logger;
 import com.dkellycollins.triggerfinger.util.logger.impl.SystemLogWriter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -91,6 +93,7 @@ public class Module {
         IBulletConfig bulletConfig = new BulletConfig(context);
         IEnemyConfig enemyConfig = new EnemyConfig(context);
         IPlayerConfig playerConfig = new PlayerConfig(context);
+        IFontConfig fontConfig = new FontConfig(context);
 
         //Data
         ITouchPositionDao touchPositionDao = new TouchPositionDao(view);
@@ -114,7 +117,7 @@ public class Module {
 
         //Interceptors
         List<ICollisionInterceptor> collisionInterceptors = new ArrayList<>();
-        collisionInterceptors.add(new BulletEnemyCollisionInterceptor(bulletEntityManager, enemyEntityManager));
+        collisionInterceptors.add(new BulletEnemyCollisionInterceptor(bulletEntityManager, enemyEntityManager, playerEntityManager));
         //collisionInterceptors.add(new BulletPlayerCollisionInterceptor(bulletEntityManager, playerEntityManager));
         //collisionInterceptors.add(new PlayerEnemyCollisionInterceptor(playerEntityManager, enemyEntityManager));
 
@@ -138,7 +141,14 @@ public class Module {
         _viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
         _viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
         _viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));
+        _viewManagers.add(new ScoreViewManager(context, fontConfig, playerEntityManager));
 
+        Collections.sort(_viewManagers, new Comparator<IViewManager>() {
+            @Override
+            public int compare(IViewManager lhs, IViewManager rhs) {
+                return lhs.getLayer().compareTo(rhs.getLayer());
+            }
+        });
     }
 
     public List<IStateManager> getStateManagers() {

@@ -6,4 +6,6 @@ public interface IPlayer extends IEntity {
 
     int getWeaponId();
 
+    int getScore();
+
 }

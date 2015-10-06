@@ -9,6 +9,9 @@ import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 import com.dkellycollins.triggerfinger.util.logger.ILogger;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 public class GameThread extends Thread {
 
     private final SurfaceView _view;

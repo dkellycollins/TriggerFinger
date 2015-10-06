@@ -11,5 +11,7 @@ public interface IPlayerEntityManager {
 
     int create(IVector position);
 
+    void update(int playerId, int score);
+
     void delete(int playerId);
 }

@@ -42,7 +42,14 @@ public class PlayerEntityManager implements IPlayerEntityManager {
         int collidableId = _collidableManager.create(position, _config.getCollidableRadius());
         int weaponId = _weaponManager.create(collidableId);
 
-        return _dao.create(collidableId, weaponId);
+        return _dao.create(collidableId, weaponId, 0);
+    }
+
+    @Override
+    public void update(int playerId, int score) {
+        IPlayer player = _dao.retrieve(playerId);
+
+        _dao.update(playerId, player.getWeaponId(), score);
     }
 
     @Override
