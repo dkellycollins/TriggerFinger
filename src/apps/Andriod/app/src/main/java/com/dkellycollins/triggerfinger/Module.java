@@ -56,6 +56,7 @@ import com.dkellycollins.triggerfinger.managers.state.impl.TimerStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.WeaponStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.BulletViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.BulletHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.EnemyHitboxViewManager;
@@ -133,6 +134,7 @@ public class Module {
         _viewManagers = new ArrayList<IViewManager>();
         //_viewManagers.add(new BulletViewManager(bulletConfig, bulletEntityManager, collidableEntityManager, bitmapEnityManager));
         _viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
+        _viewManagers.add(new EnemyViewManager(enemyConfig, bitmapEnityManager, enemyEntityManager, collidableEntityManager));
         _viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
         _viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
         _viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));

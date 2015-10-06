@@ -12,6 +12,11 @@ public class EnemyConfig extends RConfig implements IEnemyConfig {
     }
 
     @Override
+    public int getSpriteId() {
+        return R.drawable.enemy_sprite;
+    }
+
+    @Override
     public int getRespawnRate() {
         return _context.getResources().getInteger(R.integer.enemy_respawn_rate);
     }
