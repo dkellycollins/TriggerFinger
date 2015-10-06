@@ -2,6 +2,7 @@ package com.dkellycollins.triggerfinger.managers.view.impl;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.RectF;
 
 import com.dkellycollins.triggerfinger.R;
 import com.dkellycollins.triggerfinger.data.config.IPlayerConfig;
@@ -43,15 +44,21 @@ public class PlayerViewManager implements IViewManager {
             ICollidable collidable = _collidableManager.retrieve(player.getCollidableId());
             Bitmap bitmap = _bitmapManager.retrieve(_playerConfig.getBitmapId());
 
-            float left = collidable.getCenter().getX() - collidable.getRadius();
-            float top = collidable.getCenter().getY() - collidable.getRadius();
-
-            canvas.drawBitmap(bitmap, left, top, null);
+            canvas.drawBitmap(bitmap, null, getDestinationRect(collidable), null);
         }
     }
 
     @Override
     public void dispose() {
         _bitmapManager.delete(_playerConfig.getBitmapId());
+    }
+
+    private RectF getDestinationRect(ICollidable collidable) {
+        float top = collidable.getCenter().getY() - collidable.getRadius();
+        float left = collidable.getCenter().getX() - collidable.getRadius();
+        float bottom = collidable.getCenter().getY() + collidable.getRadius();
+        float right = collidable.getCenter().getX() + collidable.getRadius();
+
+        return new RectF(left, top, right, bottom);
     }
 }

@@ -132,7 +132,7 @@ public class Module {
         //View managers.
         _viewManagers = new ArrayList<IViewManager>();
         //_viewManagers.add(new BulletViewManager(bulletConfig, bulletEntityManager, collidableEntityManager, bitmapEnityManager));
-        //_viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
+        _viewManagers.add(new PlayerViewManager(playerEntityManager, playerConfig, collidableEntityManager, bitmapEnityManager));
         _viewManagers.add(new PlayerHitboxViewManager(playerEntityManager, collidableEntityManager));
         _viewManagers.add(new EnemyHitboxViewManager(enemyEntityManager, collidableEntityManager));
         _viewManagers.add(new BulletHitboxViewManager(bulletEntityManager, collidableEntityManager));
