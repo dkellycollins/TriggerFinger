@@ -1,7 +1,6 @@
 package com.dkellycollins.triggerfinger.managers.events.interceptors;
 
-public interface ICollisionInterceptor {
+import com.dkellycollins.triggerfinger.managers.events.ICollisionEvent;
 
-    void onCollision(int collidable1, int collidable2);
-
+public interface ICollisionInterceptor extends ICollisionEvent {
 }
