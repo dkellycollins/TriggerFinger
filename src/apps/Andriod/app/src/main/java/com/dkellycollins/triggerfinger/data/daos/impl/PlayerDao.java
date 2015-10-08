@@ -16,9 +16,9 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
     }
 
     @Override
-    public int create(int collidableId, int weaponId, int score) {
+    public int create(int collidableId, int invincibleTimerId, int weaponId, int score, byte health) {
         int id = getNextId();
-        Player player = new Player(id, collidableId, weaponId, score);
+        Player player = new Player(id, collidableId, invincibleTimerId, weaponId, score, health);
 
         _store.put(id, player);
         if(_playerOne == null) {
@@ -48,7 +48,7 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
     }
 
     @Override
-    public void update(int id, int weaponId, int score) {
+    public void update(int id, int weaponId, int score, byte health) {
         if(!_store.containsKey(id)) {
             throw new RuntimeException(String.format("Key {0} not found", id));
         }
@@ -57,6 +57,7 @@ public class PlayerDao extends BaseEntityDao implements IPlayerDao {
 
         player.setWeaponId(weaponId);
         player.setScore(score);
+        player.setHealth(health);
     }
 
     @Override

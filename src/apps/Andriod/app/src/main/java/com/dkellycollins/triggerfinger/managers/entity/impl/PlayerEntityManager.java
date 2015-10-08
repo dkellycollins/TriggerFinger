@@ -6,6 +6,7 @@ import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
 
 public class PlayerEntityManager implements IPlayerEntityManager {
@@ -14,12 +15,14 @@ public class PlayerEntityManager implements IPlayerEntityManager {
     private final IPlayerConfig _config;
     private final ICollidableEntityManager _collidableManager;
     private final IWeaponEntityManager _weaponManager;
+    private final ITimerEntityManager _timerManager;
 
-    public PlayerEntityManager(IPlayerDao dao, IPlayerConfig config, ICollidableEntityManager collidableManager, IWeaponEntityManager weaponManager) {
+    public PlayerEntityManager(IPlayerDao dao, IPlayerConfig config, ICollidableEntityManager collidableManager, IWeaponEntityManager weaponManager, ITimerEntityManager timerManager) {
         _dao = dao;
         _config = config;
         _collidableManager = collidableManager;
         _weaponManager = weaponManager;
+        _timerManager = timerManager;
     }
 
     @Override
@@ -41,15 +44,16 @@ public class PlayerEntityManager implements IPlayerEntityManager {
     public int create(IVector position) {
         int collidableId = _collidableManager.create(position, _config.getCollidableRadius());
         int weaponId = _weaponManager.create(collidableId);
+        int invincibleTimerId = _timerManager.create(_config.getInvincibleTime(), false);
 
-        return _dao.create(collidableId, weaponId, 0);
+        return _dao.create(collidableId, weaponId, invincibleTimerId, 0, (byte)3);
     }
 
     @Override
-    public void update(int playerId, int score) {
+    public void update(int playerId, int score, byte health) {
         IPlayer player = _dao.retrieve(playerId);
 
-        _dao.update(playerId, player.getWeaponId(), score);
+        _dao.update(playerId, player.getWeaponId(), score, health);
     }
 
     @Override

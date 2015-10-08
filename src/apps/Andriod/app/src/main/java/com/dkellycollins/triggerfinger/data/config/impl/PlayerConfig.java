@@ -20,4 +20,9 @@ public class PlayerConfig extends RConfig implements IPlayerConfig {
     public float getCollidableRadius() {
         return getFloat(R.integer.player_collidable_radius);
     }
+
+    @Override
+    public int getInvincibleTime() {
+        return _context.getResources().getInteger(R.integer.player_invincible_time);
+    }
 }

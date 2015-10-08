@@ -5,4 +5,6 @@ public interface IPlayerConfig {
     int getBitmapId();
 
     float getCollidableRadius();
+
+    int getInvincibleTime();
 }

@@ -8,4 +8,8 @@ public interface IPlayer extends IEntity {
 
     int getScore();
 
+    byte getHealth();
+
+    int getInvincibleTimerId();
+
 }
