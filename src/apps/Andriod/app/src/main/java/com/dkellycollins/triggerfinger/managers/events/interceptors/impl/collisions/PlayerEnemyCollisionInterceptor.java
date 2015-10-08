@@ -14,13 +14,11 @@ public class PlayerEnemyCollisionInterceptor implements ICollisionInterceptor {
     private final IPlayerEntityManager _playerManager;
     private final IEnemyEntityManager _enemyManager;
     private final ITimerEntityManager _timerManager;
-    private final IGameStateManager _gameManager;
 
-    public PlayerEnemyCollisionInterceptor(IPlayerEntityManager playerManager, IEnemyEntityManager enemyManager, ITimerEntityManager timerManager, IGameStateManager gameManager) {
+    public PlayerEnemyCollisionInterceptor(IPlayerEntityManager playerManager, IEnemyEntityManager enemyManager, ITimerEntityManager timerManager) {
         _playerManager = playerManager;
         _enemyManager = enemyManager;
         _timerManager = timerManager;
-        _gameManager = gameManager;
     }
 
     @Override

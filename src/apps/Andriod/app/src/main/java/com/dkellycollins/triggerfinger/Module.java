@@ -43,10 +43,12 @@ import com.dkellycollins.triggerfinger.managers.entity.impl.EnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.PlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.TimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.WeaponEntityManager;
+import com.dkellycollins.triggerfinger.managers.events.ICollisionEvent;
 import com.dkellycollins.triggerfinger.managers.events.dispatchers.ICollisionDispatcher;
-import com.dkellycollins.triggerfinger.managers.events.dispatchers.impl.CollisionDispatcher;
+import com.dkellycollins.triggerfinger.managers.events.dispatchers.impl.CollisionEventDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.interceptors.ICollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.BulletEnemyCollisionInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.PlayerEnemyCollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.BulletStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.CollisionStateManager;
@@ -57,7 +59,7 @@ import com.dkellycollins.triggerfinger.managers.state.impl.WeaponStateManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.EnemyViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.PlayerViewManager;
-import com.dkellycollins.triggerfinger.managers.view.impl.ScoreViewManager;
+import com.dkellycollins.triggerfinger.managers.view.impl.gui.ScoreViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.BulletHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.EnemyHitboxViewManager;
 import com.dkellycollins.triggerfinger.managers.view.impl.debug.PlayerHitboxViewManager;
@@ -72,9 +74,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by Devin on 10/5/2015.
- */
 public class Module {
 
     private final List<IViewManager> _viewManagers;
@@ -111,18 +110,18 @@ public class Module {
         ITimerEntityManager timerEntityManager = new TimerEntityManager(timerDao);
         IWeaponEntityManager weaponEntityManager = new WeaponEntityManager(weaponDao, bulletConfig, timerEntityManager);
         IBulletEntityManager bulletEntityManager = new BulletEntityManager(bulletDao, bulletConfig, collidableEntityManager);
-        IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, playerConfig, collidableEntityManager, weaponEntityManager);
+        IPlayerEntityManager playerEntityManager = new PlayerEntityManager(playerDao, playerConfig, collidableEntityManager, weaponEntityManager, timerEntityManager);
         IEnemyEntityManager enemyEntityManager = new EnemyEntityManager(enemyDao, enemyConfig, collidableEntityManager);
         IBitmapEntityManager bitmapEnityManager = new BitmapEntityManager(bitmapDao);
 
         //Interceptors
-        List<ICollisionInterceptor> collisionInterceptors = new ArrayList<>();
+        List<ICollisionEvent> collisionInterceptors = new ArrayList<>();
         collisionInterceptors.add(new BulletEnemyCollisionInterceptor(bulletEntityManager, enemyEntityManager, playerEntityManager));
         //collisionInterceptors.add(new BulletPlayerCollisionInterceptor(bulletEntityManager, playerEntityManager));
-        //collisionInterceptors.add(new PlayerEnemyCollisionInterceptor(playerEntityManager, enemyEntityManager));
+        collisionInterceptors.add(new PlayerEnemyCollisionInterceptor(playerEntityManager, enemyEntityManager, timerEntityManager));
 
         //Dispatchers
-        ICollisionDispatcher collisionDispatcher = new CollisionDispatcher(collisionInterceptors);
+        ICollisionDispatcher collisionDispatcher = new CollisionEventDispatcher(collisionInterceptors);
 
         //State managers.
         _stateManagers = new ArrayList<IStateManager>();

@@ -36,7 +36,7 @@ public class BulletEnemyCollisionInterceptor implements ICollisionInterceptor {
 
         IPlayer player = _playerManager.retrievePlayerOne();
         if(player != null) {
-            _playerManager.update(player.getId(), player.getScore() + 50);
+            _playerManager.update(player.getId(), player.getScore() + 50, player.getHealth());
         }
     }
 
