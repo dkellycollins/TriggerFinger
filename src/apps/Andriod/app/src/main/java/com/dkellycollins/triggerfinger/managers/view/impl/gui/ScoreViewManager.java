@@ -1,4 +1,4 @@
-package com.dkellycollins.triggerfinger.managers.view.impl;
+package com.dkellycollins.triggerfinger.managers.view.impl.gui;
 
 import android.content.Context;
 import android.graphics.Canvas;
