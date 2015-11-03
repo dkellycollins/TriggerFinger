@@ -1,16 +1,13 @@
 package com.dkellycollins.triggerfinger.managers.state.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
-import com.dkellycollins.triggerfinger.data.model.IPosition;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.events.dispatchers.ICollisionDispatcher;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
-import com.dkellycollins.triggerfinger.util.ArrayUtil;
+import com.dkellycollins.triggerfinger.util.IterableUtil;
 import com.dkellycollins.triggerfinger.util.MathUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CollisionStateManager implements IStateManager {
@@ -31,7 +28,7 @@ public class CollisionStateManager implements IStateManager {
     @Override
     public void update(long deltaTime) {
 
-        List<ICollidable> collidables = ArrayUtil.asArrayList(_collidableManager.retrieve());
+        List<ICollidable> collidables = IterableUtil.toArrayList(_collidableManager.retrieve());
 
         for(int i = 0; i < collidables.size(); i++) {
             ICollidable item1 = collidables.get(i);
