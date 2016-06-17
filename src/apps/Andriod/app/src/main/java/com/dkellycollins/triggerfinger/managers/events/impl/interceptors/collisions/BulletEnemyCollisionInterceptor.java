@@ -1,4 +1,4 @@
-package com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions;
+package com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions;
 
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
@@ -6,9 +6,11 @@ import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.ICollisionInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IMessage;
+import com.dkellycollins.triggerfinger.managers.events.impl.messages.CollisionMessage;
 
-public class BulletEnemyCollisionInterceptor implements ICollisionInterceptor {
+public class BulletEnemyCollisionInterceptor implements IEventInterceptor {
 
     private final IBulletEntityManager _bulletManager;
     private final IEnemyEntityManager _enemyManager;
@@ -21,9 +23,16 @@ public class BulletEnemyCollisionInterceptor implements ICollisionInterceptor {
     }
 
     @Override
-    public void onCollision(int item1, int item2) {
-        IBullet bullet = getBullet(item1, item2);
-        IEnemy enemy = getEnemy(item1, item2);
+    public boolean handlesMessage(IMessage message) {
+        return message instanceof CollisionMessage;
+    }
+
+    @Override
+    public void invoke(IMessage message) {
+        CollisionMessage m = (CollisionMessage)message;
+
+        IBullet bullet = getBullet(m.getItem1(), m.getItem2());
+        IEnemy enemy = getEnemy(m.getItem1(), m.getItem2());
 
         if(bullet != null && enemy != null) {
             onCollision(bullet, enemy);

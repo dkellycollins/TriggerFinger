@@ -43,12 +43,12 @@ import com.dkellycollins.triggerfinger.managers.entity.impl.EnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.PlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.TimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.WeaponEntityManager;
-import com.dkellycollins.triggerfinger.managers.events.ICollisionEvent;
-import com.dkellycollins.triggerfinger.managers.events.dispatchers.ICollisionDispatcher;
-import com.dkellycollins.triggerfinger.managers.events.dispatchers.impl.CollisionEventDispatcher;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.ICollisionInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.BulletEnemyCollisionInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions.PlayerEnemyCollisionInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IEventDispatcher;
+import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IMessage;
+import com.dkellycollins.triggerfinger.managers.events.impl.EventDispatcher;
+import com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions.BulletEnemyCollisionInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions.PlayerEnemyCollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.BulletStateManager;
 import com.dkellycollins.triggerfinger.managers.state.impl.CollisionStateManager;
@@ -115,17 +115,17 @@ public class Module {
         IBitmapEntityManager bitmapEnityManager = new BitmapEntityManager(bitmapDao);
 
         //Interceptors
-        List<ICollisionEvent> collisionInterceptors = new ArrayList<>();
-        collisionInterceptors.add(new BulletEnemyCollisionInterceptor(bulletEntityManager, enemyEntityManager, playerEntityManager));
-        //collisionInterceptors.add(new BulletPlayerCollisionInterceptor(bulletEntityManager, playerEntityManager));
-        collisionInterceptors.add(new PlayerEnemyCollisionInterceptor(playerEntityManager, enemyEntityManager, timerEntityManager));
+        List<IEventInterceptor> interceptors = new ArrayList<>();
+        interceptors.add(new BulletEnemyCollisionInterceptor(bulletEntityManager, enemyEntityManager, playerEntityManager));
+        //interceptors.add(new BulletPlayerCollisionInterceptor(bulletEntityManager, playerEntityManager));
+        interceptors.add(new PlayerEnemyCollisionInterceptor(playerEntityManager, enemyEntityManager, timerEntityManager));
 
         //Dispatchers
-        ICollisionDispatcher collisionDispatcher = new CollisionEventDispatcher(collisionInterceptors);
+        IEventDispatcher dispatcher = new EventDispatcher(interceptors);
 
         //State managers.
         _stateManagers = new ArrayList<IStateManager>();
-        _stateManagers.add(new CollisionStateManager(collidableEntityManager, collisionDispatcher));
+        _stateManagers.add(new CollisionStateManager(collidableEntityManager, dispatcher));
         _stateManagers.add(new PlayerStateManager(playerEntityManager, collidableEntityManager, touchPositionDao, weaponEntityManager, timerEntityManager));
         _stateManagers.add(new EnemyStateManager(enemyEntityManager, enemyConfig, collidableEntityManager, timerEntityManager, deviceInfoDao, random));
         _stateManagers.add(new TimerStateManager(timerEntityManager));

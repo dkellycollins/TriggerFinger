@@ -3,7 +3,8 @@ package com.dkellycollins.triggerfinger.managers.state.impl;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
-import com.dkellycollins.triggerfinger.managers.events.dispatchers.ICollisionDispatcher;
+import com.dkellycollins.triggerfinger.managers.events.IEventDispatcher;
+import com.dkellycollins.triggerfinger.managers.events.impl.messages.CollisionMessage;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.util.IterableUtil;
 import com.dkellycollins.triggerfinger.util.MathUtil;
@@ -13,9 +14,9 @@ import java.util.List;
 public class CollisionStateManager implements IStateManager {
 
     private final ICollidableEntityManager _collidableManager;
-    private final ICollisionDispatcher _dispatcher;
+    private final IEventDispatcher _dispatcher;
 
-    public CollisionStateManager(ICollidableEntityManager collidableManager, ICollisionDispatcher dispatcher) {
+    public CollisionStateManager(ICollidableEntityManager collidableManager, IEventDispatcher dispatcher) {
         _collidableManager = collidableManager;
         _dispatcher = dispatcher;
     }
@@ -36,7 +37,7 @@ public class CollisionStateManager implements IStateManager {
                 ICollidable item2 = collidables.get(j);
 
                 if(isCollision(item1, item2)) {
-                    _dispatcher.onCollision(item1.getId(), item2.getId());
+                    _dispatcher.dispatch(new CollisionMessage(item1.getId(), item2.getId()));
                 }
             }
         }

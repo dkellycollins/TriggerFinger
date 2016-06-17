@@ -1,15 +1,16 @@
-package com.dkellycollins.triggerfinger.managers.events.interceptors.impl.collisions;
+package com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions;
 
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.data.entity.ITimer;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
-import com.dkellycollins.triggerfinger.managers.entity.IGameStateManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
-import com.dkellycollins.triggerfinger.managers.events.interceptors.ICollisionInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
+import com.dkellycollins.triggerfinger.managers.events.IMessage;
+import com.dkellycollins.triggerfinger.managers.events.impl.messages.CollisionMessage;
 
-public class PlayerEnemyCollisionInterceptor implements ICollisionInterceptor {
+public class PlayerEnemyCollisionInterceptor implements IEventInterceptor {
 
     private final IPlayerEntityManager _playerManager;
     private final IEnemyEntityManager _enemyManager;
@@ -22,9 +23,16 @@ public class PlayerEnemyCollisionInterceptor implements ICollisionInterceptor {
     }
 
     @Override
-    public void onCollision(int item1, int item2) {
-        IPlayer player = getPlayer(item1, item2);
-        IEnemy enemy = getEnemy(item1, item2);
+    public boolean handlesMessage(IMessage message) {
+        return message instanceof CollisionMessage;
+    }
+
+    @Override
+    public void invoke(IMessage message) {
+        CollisionMessage m = (CollisionMessage)message;
+
+        IPlayer player = getPlayer(m.getItem1(), m.getItem2());
+        IEnemy enemy = getEnemy(m.getItem1(), m.getItem2());
 
         if(player != null && enemy != null) {
             onCollision(player, enemy);
