@@ -3,9 +3,9 @@ package com.dkellycollins.triggerfinger.data.daos;
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 
 /**
- * Created by Devin on 9/5/2015.
+ * Provides the ability to manage enemy data.
  */
-public interface IEnemyDao {
+public interface IEnemyDao extends IActivityDao {
 
     int create(int collidableId);
 

@@ -8,12 +8,10 @@ import com.dkellycollins.triggerfinger.data.entity.impl.Player;
 
 import java.util.HashMap;
 
-public class EnemyDao extends BaseEntityDao implements IEnemyDao {
-
-    private final HashMap<Integer, Enemy> _store;
+public class EnemyDao extends BaseEntityDao<Enemy> implements IEnemyDao {
 
     public EnemyDao() {
-        _store = new HashMap<>();
+        super("EnemyDao");
     }
 
     @Override

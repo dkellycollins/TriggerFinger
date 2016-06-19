@@ -2,7 +2,10 @@ package com.dkellycollins.triggerfinger.data.daos;
 
 import com.dkellycollins.triggerfinger.data.entity.ITimer;
 
-public interface ITimerDao {
+/**
+ * Provides te ability to manage timer data.
+ */
+public interface ITimerDao extends IActivityDao {
 
     Iterable<ITimer> retrieve();
     ITimer retrieve(int id);

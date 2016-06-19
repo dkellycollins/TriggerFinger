@@ -6,13 +6,12 @@ import com.dkellycollins.triggerfinger.data.entity.impl.Player;
 
 import java.util.HashMap;
 
-public class PlayerDao extends BaseEntityDao implements IPlayerDao {
+public class PlayerDao extends BaseEntityDao<Player> implements IPlayerDao {
 
-    private final HashMap<Integer, Player> _store;
     private Player _playerOne;
 
     public PlayerDao() {
-        _store = new HashMap<>();
+        super("PlayerDao");
     }
 
     @Override

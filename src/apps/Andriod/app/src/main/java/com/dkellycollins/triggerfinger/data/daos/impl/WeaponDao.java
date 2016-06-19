@@ -9,12 +9,10 @@ import java.util.HashMap;
 /**
  * Created by Devin on 9/6/2015.
  */
-public class WeaponDao extends BaseEntityDao implements IWeaponDao {
-
-    private final HashMap<Integer, Weapon> _store;
+public class WeaponDao extends BaseEntityDao<Weapon> implements IWeaponDao {
 
     public WeaponDao() {
-        _store = new HashMap<>();
+        super("WeaponDao");
     }
 
     @Override

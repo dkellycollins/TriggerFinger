@@ -2,7 +2,10 @@ package com.dkellycollins.triggerfinger.data.daos;
 
 import com.dkellycollins.triggerfinger.data.entity.IWeapon;
 
-public interface IWeaponDao {
+/**
+ * Provides te ability to manage weapon data.
+ */
+public interface IWeaponDao extends IActivityDao {
 
     Iterable<IWeapon> retrieve();
     IWeapon retrieve(int id);

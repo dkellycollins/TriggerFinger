@@ -6,12 +6,10 @@ import com.dkellycollins.triggerfinger.data.entity.impl.Timer;
 
 import java.util.HashMap;
 
-public class TimerDao extends BaseEntityDao implements ITimerDao {
-
-    private final HashMap<Integer, Timer> _store;
+public class TimerDao extends BaseEntityDao<Timer> implements ITimerDao {
 
     public TimerDao() {
-        _store = new HashMap<>();
+        super("TimerDao");
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 
-public class Player implements IPlayer {
+import java.io.Serializable;
+
+public class Player implements IPlayer, Serializable {
 
     private final int _id;
     private final int _collidableId;

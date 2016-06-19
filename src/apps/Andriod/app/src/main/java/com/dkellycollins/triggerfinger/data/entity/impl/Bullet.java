@@ -3,10 +3,12 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 
+import java.io.Serializable;
+
 /**
  * Created by Devin on 9/6/2015.
  */
-public class Bullet implements IBullet {
+public class Bullet implements IBullet, Serializable {
 
     private final int _id;
     private final int _collidableId;

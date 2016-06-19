@@ -2,7 +2,9 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.ITimer;
 
-public class Timer implements ITimer {
+import java.io.Serializable;
+
+public class Timer implements ITimer, Serializable {
 
     private final int _id;
     private final int _setTime;

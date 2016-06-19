@@ -2,7 +2,9 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 
-public class Enemy implements IEnemy {
+import java.io.Serializable;
+
+public class Enemy implements IEnemy, Serializable {
     private final int _id;
 
     private int _collidableId;

@@ -1,19 +1,21 @@
 package com.dkellycollins.triggerfinger.data.daos.impl;
 
+import android.os.Bundle;
+
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
+import com.dkellycollins.triggerfinger.data.entity.impl.Bullet;
 import com.dkellycollins.triggerfinger.data.entity.impl.Collidable;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CollidableDao extends BaseEntityDao implements ICollidableDao {
-
-    private final Map<Integer, Collidable> _store;
+public class CollidableDao extends BaseEntityDao<Collidable> implements ICollidableDao {
 
     public CollidableDao() {
-        _store = new HashMap<>();
+        super("CollidableDao");
     }
 
     @Override
@@ -59,5 +61,4 @@ public class CollidableDao extends BaseEntityDao implements ICollidableDao {
 
         _store.remove(id);
     }
-
 }

@@ -4,7 +4,9 @@ import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 
-public class Collidable implements ICollidable {
+import java.io.Serializable;
+
+public class Collidable implements ICollidable, Serializable {
 
     private final int _id;
 

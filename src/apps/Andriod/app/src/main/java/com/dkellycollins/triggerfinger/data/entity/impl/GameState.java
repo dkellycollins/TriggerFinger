@@ -2,7 +2,9 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.IGameState;
 
-public class GameState implements IGameState {
+import java.io.Serializable;
+
+public class GameState implements IGameState, Serializable {
 
     private boolean _gameOver;
     private boolean _isPaused;

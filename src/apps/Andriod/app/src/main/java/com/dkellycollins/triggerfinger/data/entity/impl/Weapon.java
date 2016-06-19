@@ -2,7 +2,9 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.IWeapon;
 
-public class Weapon implements IWeapon {
+import java.io.Serializable;
+
+public class Weapon implements IWeapon, Serializable {
     private final int _id;
     private final int _collidableId;
     private final int _timerId;

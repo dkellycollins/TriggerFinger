@@ -1,21 +1,22 @@
 package com.dkellycollins.triggerfinger.data.daos.impl;
 
+import android.os.Bundle;
+
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.entity.impl.Bullet;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
- * Created by Devin on 9/6/2015.
+ * Standard implementation of IBulletDao.
  */
-public class BulletDao extends BaseEntityDao implements IBulletDao {
-
-    private final HashMap<Integer, Bullet> _store;
+public class BulletDao extends BaseEntityDao<Bullet> implements IBulletDao {
 
     public BulletDao() {
-        _store = new HashMap<>();
+        super("BulletDao");
     }
 
     @Override

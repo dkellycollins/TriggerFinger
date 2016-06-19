@@ -1,13 +1,12 @@
 package com.dkellycollins.triggerfinger.data.daos;
 
-import com.dkellycollins.triggerfinger.data.daos.impl.BaseEntityDao;
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 
 /**
- * Created by Devin on 9/6/2015.
+ * Provides the ability to manage bullet data.
  */
-public interface IBulletDao {
+public interface IBulletDao extends IActivityDao {
 
     Iterable<IBullet> retrieve();
     IBullet retrieve(int id);
