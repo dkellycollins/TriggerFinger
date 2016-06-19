@@ -2,7 +2,7 @@ package com.dkellycollins.triggerfinger.managers.events.impl;
 
 import com.dkellycollins.triggerfinger.managers.events.IEventDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.IMessage;
+import com.dkellycollins.triggerfinger.managers.events.IEvent;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ public class EventDispatcher implements IEventDispatcher {
     }
 
     @Override
-    public <T extends IMessage> void dispatch(T message) {
+    public <T extends IEvent> void dispatch(T event) {
         for (IEventInterceptor interceptor :_interceptors) {
-            if(!interceptor.handlesMessage(message)) {
+            if(!interceptor.handlesMessage(event)) {
                 continue;
             }
 
-            interceptor.invoke(message);
+            interceptor.invoke(event);
         }
     }
 }

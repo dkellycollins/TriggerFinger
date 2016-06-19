@@ -1,9 +1,14 @@
 package com.dkellycollins.triggerfinger.managers.events;
 
 /**
- * Sends a message throughout the system.
+ * Provides the ability to broadcast event data.
  */
 public interface IEventDispatcher {
 
-    <T extends IMessage> void dispatch(T message);
+    /**
+     * Broadcasts an event to the appropriate interceptors.
+     * @param event The event data to send.
+     * @param <T> The type of the event.
+     */
+    <T extends IEvent> void dispatch(T event);
 }

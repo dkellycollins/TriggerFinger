@@ -1,7 +1,7 @@
 package com.dkellycollins.triggerfinger.managers.events;
 
 /**
- * Base type for all messages
+ * Represents an event within the system.
  */
-public interface IMessage {
+public interface IEvent {
 }

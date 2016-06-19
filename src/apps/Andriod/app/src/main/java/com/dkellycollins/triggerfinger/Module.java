@@ -45,7 +45,6 @@ import com.dkellycollins.triggerfinger.managers.entity.impl.TimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.impl.WeaponEntityManager;
 import com.dkellycollins.triggerfinger.managers.events.IEventDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.IMessage;
 import com.dkellycollins.triggerfinger.managers.events.impl.EventDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions.BulletEnemyCollisionInterceptor;
 import com.dkellycollins.triggerfinger.managers.events.impl.interceptors.collisions.PlayerEnemyCollisionInterceptor;

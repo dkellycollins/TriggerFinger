@@ -7,8 +7,8 @@ import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
-import com.dkellycollins.triggerfinger.managers.events.IMessage;
-import com.dkellycollins.triggerfinger.managers.events.impl.messages.CollisionMessage;
+import com.dkellycollins.triggerfinger.managers.events.IEvent;
+import com.dkellycollins.triggerfinger.managers.events.impl.events.CollisionEvent;
 
 public class BulletEnemyCollisionInterceptor implements IEventInterceptor {
 
@@ -23,13 +23,13 @@ public class BulletEnemyCollisionInterceptor implements IEventInterceptor {
     }
 
     @Override
-    public boolean handlesMessage(IMessage message) {
-        return message instanceof CollisionMessage;
+    public boolean handlesMessage(IEvent event) {
+        return event instanceof CollisionEvent;
     }
 
     @Override
-    public void invoke(IMessage message) {
-        CollisionMessage m = (CollisionMessage)message;
+    public void invoke(IEvent event) {
+        CollisionEvent m = (CollisionEvent) event;
 
         IBullet bullet = getBullet(m.getItem1(), m.getItem2());
         IEnemy enemy = getEnemy(m.getItem1(), m.getItem2());
