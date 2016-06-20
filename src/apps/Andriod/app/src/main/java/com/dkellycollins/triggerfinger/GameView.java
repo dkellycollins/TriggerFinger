@@ -1,5 +1,6 @@
 package com.dkellycollins.triggerfinger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -65,13 +66,13 @@ import java.util.Random;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
+    private final GameActivity _activity;
     private GameThread _gameThread;
-    private Module _module;
 
-    public GameView(Context context) {
-        super(context);
+    public GameView(GameActivity activity) {
+        super(activity);
 
-        _module = new Module(this, context);
+        _activity = activity;
 
         getHolder().addCallback(this);
     }
@@ -96,7 +97,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             return;
         }
 
-        _gameThread = new GameThread(this, _module.getStateManagers(), _module.getViewManagers(), _module.getLogger());
+        Module module = _activity.getModule();
+        _gameThread = new GameThread(this, module.getStateManagers(), module.getViewManagers(), module.getLogger());
         _gameThread.setActive(true);
         _gameThread.start();
     }

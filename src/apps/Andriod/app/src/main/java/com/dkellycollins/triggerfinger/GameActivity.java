@@ -8,6 +8,7 @@ import android.view.Window;
 public class GameActivity extends Activity {
 
     private GameView _gameView;
+    private Module _module;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -16,6 +17,12 @@ public class GameActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         _gameView = new GameView(this);
+        _module = new Module(_gameView, this);
+
         setContentView(_gameView);
+    }
+
+    public Module getModule() {
+        return _module;
     }
 }

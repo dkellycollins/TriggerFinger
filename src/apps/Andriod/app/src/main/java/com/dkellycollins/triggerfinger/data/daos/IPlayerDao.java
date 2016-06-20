@@ -2,7 +2,7 @@ package com.dkellycollins.triggerfinger.data.daos;
 
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 
-public interface IPlayerDao {
+public interface IPlayerDao extends IActivityDao {
 
     int create(int collidableId, int invincibleTimerId, int weaponId, int score, byte health);
 

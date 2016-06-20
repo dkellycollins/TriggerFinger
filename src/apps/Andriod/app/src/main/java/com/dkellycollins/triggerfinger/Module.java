@@ -11,6 +11,7 @@ import com.dkellycollins.triggerfinger.data.config.impl.BulletConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.EnemyConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.FontConfig;
 import com.dkellycollins.triggerfinger.data.config.impl.PlayerConfig;
+import com.dkellycollins.triggerfinger.data.daos.IActivityDao;
 import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
 import com.dkellycollins.triggerfinger.data.daos.IBulletDao;
 import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
@@ -77,9 +78,10 @@ public class Module {
 
     private final List<IViewManager> _viewManagers;
     private final List<IStateManager> _stateManagers;
+    private final List<IActivityDao> _activityDaos;
     private final ILogger _logger;
 
-    public Module(View view, Context context) {
+    public Module(View activeView, Context context) {
 
         //Util
         List<ILogWriter> logWriters = new ArrayList<>();
@@ -94,8 +96,8 @@ public class Module {
         IFontConfig fontConfig = new FontConfig(context);
 
         //Data
-        ITouchPositionDao touchPositionDao = new TouchPositionDao(view);
-        IDeviceInfoDao deviceInfoDao = new DeviceInfoDao(view);
+        ITouchPositionDao touchPositionDao = new TouchPositionDao(activeView);
+        IDeviceInfoDao deviceInfoDao = new DeviceInfoDao(activeView);
         ICollidableDao collidableDao = new CollidableDao();
         IPlayerDao playerDao = new PlayerDao();
         IEnemyDao enemyDao = new EnemyDao();
@@ -103,6 +105,14 @@ public class Module {
         IWeaponDao weaponDao = new WeaponDao();
         IBulletDao bulletDao = new BulletDao();
         IBitmapDao bitmapDao = new BitmapDao(context);
+
+        _activityDaos = new ArrayList<>();
+        _activityDaos.add(collidableDao);
+        _activityDaos.add(playerDao);
+        _activityDaos.add(enemyDao);
+        _activityDaos.add(timerDao);
+        _activityDaos.add(weaponDao);
+        _activityDaos.add(bulletDao);
 
         //Entity managers.
         ICollidableEntityManager collidableEntityManager = new CollidableEntityManager(collidableDao);
@@ -156,6 +166,8 @@ public class Module {
     public List<IViewManager> getViewManagers() {
         return _viewManagers;
     }
+
+    public List<IActivityDao> getActivityDaos() { return _activityDaos; }
 
     public ILogger getLogger() {
         return _logger;
