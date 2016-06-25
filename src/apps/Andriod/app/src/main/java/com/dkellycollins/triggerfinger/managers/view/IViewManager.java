@@ -3,11 +3,12 @@ package com.dkellycollins.triggerfinger.managers.view;
 import android.graphics.Canvas;
 
 import com.dkellycollins.triggerfinger.data.model.ViewLayer;
+import com.dkellycollins.triggerfinger.managers.IDisposable;
 
 /**
  * Represents a manager that handles rendering.
  */
-public interface IViewManager {
+public interface IViewManager extends IDisposable {
 
     /**
      * Get the layer this manager should be rendered on. Lower layers should be rendered first.
@@ -26,6 +27,4 @@ public interface IViewManager {
      * @param canvas The canvas to render to.
      */
     void render(Canvas canvas);
-
-    void dispose();
 }
