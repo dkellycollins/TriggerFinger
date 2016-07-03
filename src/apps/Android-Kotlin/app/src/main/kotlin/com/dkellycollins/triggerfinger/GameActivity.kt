@@ -1,43 +1,39 @@
 package com.dkellycollins.triggerfinger
 
+
+import android.app.Activity
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View
-import android.view.Menu
-import android.view.MenuItem
+import android.view.Window
 
-class GameActivity : AppCompatActivity() {
+import com.dkellycollins.triggerfinger.data.daos.IActivityDao
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_game)
-        val toolbar = findViewById(R.id.toolbar) as Toolbar?
-        setSupportActionBar(toolbar)
+class GameActivity : Activity() {
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton?
-        fab!!.setOnClickListener { view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show() }
-    }
+    private var _gameView: GameView? = null
+    var module: Module? = null
+        private set
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_game, menu)
-        return true
-    }
+    public override fun onCreate(savedInstance: Bundle?) {
+        super.onCreate(savedInstance)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        val id = item.itemId
+        _gameView = GameView(this)
+        module = Module(_gameView, this)
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true
+        for (dao in module!!.activityDaos) {
+            dao.restoreState(savedInstance)
         }
 
-        return super.onOptionsItemSelected(item)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(_gameView)
+    }
+
+    public override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        if (module == null) {
+            return
+        }
+
+        for (dao in module!!.activityDaos) {
+            dao.saveState(savedInstanceState)
+        }
     }
 }

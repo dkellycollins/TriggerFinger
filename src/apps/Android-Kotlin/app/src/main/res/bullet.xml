@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bullet_collidable_radius" format="float" type="integer">20.0</item>
+    <item name="bullet_velocity_x" format="float" type="integer">0.0</item>
+    <item name="bullet_velocity_y" format="float" type="integer">-150.0</item>
+    <item name="bullet_velocity_length" format="float" type="integer">1</item>
+    <integer name="bullet_respawn_rate">500</integer>
+    <drawable name="bullet_bitmap">@drawable/default_bullet</drawable>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="player_collidable_radius" format="float" type="integer">50</item>
+    <drawable name="player_bitmap">@drawable/p</drawable>
+    <integer name="player_invincible_time">3000</integer>
+</resources>

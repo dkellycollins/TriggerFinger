@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="font_path">fonts/android_7.ttf</string>
+    <integer name="font_size">125</integer>
+    <color name="font_color">#FFFFFF</color>
+</resources>
