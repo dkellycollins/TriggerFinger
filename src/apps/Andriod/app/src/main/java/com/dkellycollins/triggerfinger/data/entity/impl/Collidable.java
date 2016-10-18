@@ -3,6 +3,7 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.io.Serializable;
 
@@ -14,8 +15,9 @@ public class Collidable implements ICollidable, Serializable {
     private float _radius;
 
     public Collidable(int id, IVector position, float radius) {
-        _id = id;
+        Assert.isNotNull(position, "position");
 
+        _id = id;
         _position = new Vector2(position.getX(), position.getY(), 0);
         _radius = radius;
     }

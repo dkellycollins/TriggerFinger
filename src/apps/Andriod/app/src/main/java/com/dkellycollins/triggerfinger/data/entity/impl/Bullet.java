@@ -2,6 +2,7 @@ package com.dkellycollins.triggerfinger.data.entity.impl;
 
 import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.io.Serializable;
 
@@ -15,6 +16,8 @@ public class Bullet implements IBullet, Serializable {
     private final IVector _velocity;
 
     public Bullet(int id, int collidableId, IVector velocity) {
+        Assert.isNotNull(velocity, "velocity");
+
         _id = id;
         _collidableId = collidableId;
         _velocity = velocity;
