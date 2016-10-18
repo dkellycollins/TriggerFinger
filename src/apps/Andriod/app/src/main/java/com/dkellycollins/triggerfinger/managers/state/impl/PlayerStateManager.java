@@ -12,6 +12,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class PlayerStateManager implements IStateManager {
 
@@ -24,6 +25,12 @@ public class PlayerStateManager implements IStateManager {
     private int _playerId;
 
     public PlayerStateManager(IPlayerEntityManager playerManager, ICollidableEntityManager collidableManager, ITouchPositionDao touchPositionDao, IWeaponEntityManager weaponManager, ITimerEntityManager timerEnityManager) {
+        Assert.isNotNull(playerManager, "playerManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(touchPositionDao, "touchPositionDao");
+        Assert.isNotNull(weaponManager, "weaponManager");
+        Assert.isNotNull(timerEnityManager, "timerEntityManager");
+
         _playerManager = playerManager;
         _collidableManager = collidableManager;
         _touchPositionDao = touchPositionDao;

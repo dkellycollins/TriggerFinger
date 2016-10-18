@@ -6,6 +6,7 @@ import com.dkellycollins.triggerfinger.data.entity.IBullet;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class BulletHitboxViewManager extends BaseHitboxViewManager {
     private final ICollidableEntityManager _collidableManager;
 
     public BulletHitboxViewManager(IBulletEntityManager bulletManager, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(bulletManager, "bulletManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _bulletManager = bulletManager;
         _collidableManager = collidableManager;
     }

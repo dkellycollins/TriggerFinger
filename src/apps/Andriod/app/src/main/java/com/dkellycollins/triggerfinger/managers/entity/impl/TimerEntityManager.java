@@ -3,12 +3,15 @@ package com.dkellycollins.triggerfinger.managers.entity.impl;
 import com.dkellycollins.triggerfinger.data.daos.ITimerDao;
 import com.dkellycollins.triggerfinger.data.entity.ITimer;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class TimerEntityManager implements ITimerEntityManager {
 
     private final ITimerDao _dao;
 
     public TimerEntityManager(ITimerDao dao) {
+        Assert.isNotNull(dao, "dao");
+
         _dao = dao;
     }
 

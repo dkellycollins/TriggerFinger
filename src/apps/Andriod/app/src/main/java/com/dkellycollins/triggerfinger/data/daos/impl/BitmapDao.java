@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.HashMap;
 
@@ -14,6 +15,8 @@ public class BitmapDao implements IBitmapDao {
     private final HashMap<Integer, Bitmap> _store;
 
     public BitmapDao(Context context) {
+        Assert.isNotNull(context, "context");
+
         _context = context;
         _store = new HashMap<>();
     }

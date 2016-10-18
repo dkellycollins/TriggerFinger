@@ -7,12 +7,15 @@ import android.graphics.RectF;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public abstract class BaseSpriteViewManager implements IViewManager {
 
     private final IBitmapEntityManager _bitmapManager;
 
     protected BaseSpriteViewManager(IBitmapEntityManager bitmapManager) {
+        Assert.isNotNull(bitmapManager, "bitmapManager");
+
         _bitmapManager = bitmapManager;
     }
 

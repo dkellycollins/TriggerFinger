@@ -11,6 +11,7 @@ import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.data.model.ViewLayer;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class ScoreViewManager implements IViewManager {
 
@@ -21,6 +22,10 @@ public class ScoreViewManager implements IViewManager {
     private Paint _paint;
 
     public ScoreViewManager(Context context, IFontConfig fontConfig, IPlayerEntityManager playerManager) {
+        Assert.isNotNull(context, "context");
+        Assert.isNotNull(fontConfig, "fontConfig");
+        Assert.isNotNull(playerManager, "playerManager");
+
         _context = context;
         _fontConfig = fontConfig;
         _playerManager = playerManager;

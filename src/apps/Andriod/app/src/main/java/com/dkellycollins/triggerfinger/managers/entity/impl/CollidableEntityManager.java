@@ -4,12 +4,15 @@ import com.dkellycollins.triggerfinger.data.daos.ICollidableDao;
 import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.data.model.IVector;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class CollidableEntityManager implements ICollidableEntityManager {
 
     private final ICollidableDao _dao;
 
     public CollidableEntityManager(ICollidableDao dao) {
+        Assert.isNotNull(dao, "dao");
+
         _dao = dao;
     }
 

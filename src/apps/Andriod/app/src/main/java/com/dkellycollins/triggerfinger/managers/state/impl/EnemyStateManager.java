@@ -10,6 +10,7 @@ import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,13 @@ public class EnemyStateManager implements IStateManager {
     private List<Integer> _toDelete;
 
     public EnemyStateManager(IEnemyEntityManager enemyManager, IEnemyConfig enemyConfig, ICollidableEntityManager collidableManager, ITimerEntityManager timerManager, IDeviceInfoDao deviceDao, Random random) {
+        Assert.isNotNull(enemyManager, "enemyManager");
+        Assert.isNotNull(enemyConfig, "enemyConfig");
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(timerManager, "timerManager");
+        Assert.isNotNull(deviceDao, "deviceDao");
+        Assert.isNotNull(random, "random");
+
         _enemyManager = enemyManager;
         _enemyConfig = enemyConfig;
         _collidableManager = collidableManager;

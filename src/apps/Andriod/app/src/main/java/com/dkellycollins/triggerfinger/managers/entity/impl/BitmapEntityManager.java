@@ -4,12 +4,15 @@ import android.graphics.Bitmap;
 
 import com.dkellycollins.triggerfinger.data.daos.IBitmapDao;
 import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class BitmapEntityManager implements IBitmapEntityManager {
 
     private final IBitmapDao _dao;
 
     public BitmapEntityManager(IBitmapDao dao) {
+        Assert.isNotNull(dao, "dao");
+
         _dao = dao;
     }
 

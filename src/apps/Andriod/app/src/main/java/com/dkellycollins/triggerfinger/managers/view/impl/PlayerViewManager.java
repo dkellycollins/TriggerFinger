@@ -13,6 +13,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class PlayerViewManager extends BaseSpriteViewManager implements IViewManager {
 
@@ -22,6 +23,10 @@ public class PlayerViewManager extends BaseSpriteViewManager implements IViewMan
 
     public PlayerViewManager(IPlayerEntityManager playerManager, IPlayerConfig playerConfig, ICollidableEntityManager collidableManager, IBitmapEntityManager bitmapManager) {
         super(bitmapManager);
+
+        Assert.isNotNull(playerManager, "playerManager");
+        Assert.isNotNull(playerConfig, "playerConfig");
+        Assert.isNotNull(collidableManager, "collidableManager");
 
         _playerManager = playerManager;
         _playerConfig = playerConfig;

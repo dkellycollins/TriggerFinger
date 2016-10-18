@@ -8,6 +8,7 @@ import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class WeaponStateManager implements IStateManager {
 
@@ -17,6 +18,11 @@ public class WeaponStateManager implements IStateManager {
     private final ICollidableEntityManager _collidableManager;
 
     public WeaponStateManager(IWeaponEntityManager weaponManager, ITimerEntityManager timerManager, IBulletEntityManager bulletManager, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(weaponManager, "weaponManager");
+        Assert.isNotNull(timerManager, "timerManager");
+        Assert.isNotNull(bulletManager, "bulletManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _weaponManager = weaponManager;
         _timerManager = timerManager;
         _bulletManager = bulletManager;

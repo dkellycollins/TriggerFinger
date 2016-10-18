@@ -11,6 +11,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 /**
  * Created by Devin on 9/7/2015.
@@ -23,6 +24,11 @@ public class BulletViewManager implements IViewManager {
     private final IBitmapEntityManager _bitmapManager;
 
     public BulletViewManager(IBulletConfig bulletConfig, IBulletEntityManager bulletManager, ICollidableEntityManager collidableManager, IBitmapEntityManager bitmapManager) {
+        Assert.isNotNull(bulletConfig, "bulletConfig");
+        Assert.isNotNull(bulletManager, "bulletManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(bitmapManager, "bitmapManager");
+
         _bulletConfig = bulletConfig;
         _bulletManager = bulletManager;
         _collidableManager = collidableManager;

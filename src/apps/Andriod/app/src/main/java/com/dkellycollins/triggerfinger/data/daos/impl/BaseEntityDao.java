@@ -3,6 +3,7 @@ package com.dkellycollins.triggerfinger.data.daos.impl;
 import android.os.Bundle;
 
 import com.dkellycollins.triggerfinger.data.daos.IActivityDao;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ public abstract class BaseEntityDao<T> implements IActivityDao {
     protected final HashMap<Integer, T> _store;
 
     protected BaseEntityDao(String bundleId) {
+        Assert.isNotNullOrEmpty(bundleId, "bundleId");
+
         _bundleId = bundleId;
         _store = new HashMap<>();
     }

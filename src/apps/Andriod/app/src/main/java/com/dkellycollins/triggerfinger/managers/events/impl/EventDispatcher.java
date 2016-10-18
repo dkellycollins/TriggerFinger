@@ -3,6 +3,7 @@ package com.dkellycollins.triggerfinger.managers.events.impl;
 import com.dkellycollins.triggerfinger.managers.events.IEventDispatcher;
 import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
 import com.dkellycollins.triggerfinger.managers.events.IEvent;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class EventDispatcher implements IEventDispatcher {
     private final List<IEventInterceptor> _interceptors;
 
     public EventDispatcher(List<IEventInterceptor> interceptors) {
+        Assert.isNotNull(interceptors, "interceptors");
+
         _interceptors = interceptors;
     }
 

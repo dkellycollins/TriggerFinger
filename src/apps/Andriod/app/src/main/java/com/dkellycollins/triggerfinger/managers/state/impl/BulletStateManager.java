@@ -8,6 +8,7 @@ import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,10 @@ public class BulletStateManager implements IStateManager {
     private final List<Integer> _toRemove;
 
     public BulletStateManager(IBulletEntityManager bulletManager, ICollidableEntityManager collidableManager, IDeviceInfoDao deviceInfo) {
+        Assert.isNotNull(bulletManager, "bulletManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(deviceInfo, "deviceInfo");
+
         _bulletManager = bulletManager;
         _collidableManager = collidableManager;
         _deviceInfo = deviceInfo;

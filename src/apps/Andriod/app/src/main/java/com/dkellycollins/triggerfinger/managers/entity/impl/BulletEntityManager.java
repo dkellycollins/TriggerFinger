@@ -7,6 +7,7 @@ import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.data.model.impl.Vector2;
 import com.dkellycollins.triggerfinger.managers.entity.IBulletEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class BulletEntityManager implements IBulletEntityManager {
 
@@ -15,6 +16,10 @@ public class BulletEntityManager implements IBulletEntityManager {
     private final ICollidableEntityManager _collidableManager;
 
     public BulletEntityManager(IBulletDao dao, IBulletConfig config, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(dao, "dao");
+        Assert.isNotNull(config, "config");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _dao = dao;
         _config = config;
         _collidableManager = collidableManager;

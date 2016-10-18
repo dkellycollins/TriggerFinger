@@ -8,6 +8,7 @@ import com.dkellycollins.triggerfinger.managers.events.impl.events.CollisionEven
 import com.dkellycollins.triggerfinger.managers.state.IStateManager;
 import com.dkellycollins.triggerfinger.util.IterableUtil;
 import com.dkellycollins.triggerfinger.util.MathUtil;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.List;
 
@@ -17,6 +18,9 @@ public class CollisionStateManager implements IStateManager {
     private final IEventDispatcher _dispatcher;
 
     public CollisionStateManager(ICollidableEntityManager collidableManager, IEventDispatcher dispatcher) {
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(dispatcher, "dispatcher");
+
         _collidableManager = collidableManager;
         _dispatcher = dispatcher;
     }

@@ -6,6 +6,7 @@ import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ public class EnemyHitboxViewManager extends BaseHitboxViewManager {
     private final ICollidableEntityManager _collidableManager;
 
     public EnemyHitboxViewManager(IEnemyEntityManager enemyManager, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(enemyManager, "enemyManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _enemyManager = enemyManager;
         _collidableManager = collidableManager;
     }

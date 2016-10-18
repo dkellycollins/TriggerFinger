@@ -6,6 +6,7 @@ import com.dkellycollins.triggerfinger.data.entity.IEnemy;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class EnemyEntityManager implements IEnemyEntityManager {
 
@@ -14,6 +15,10 @@ public class EnemyEntityManager implements IEnemyEntityManager {
     private final ICollidableEntityManager _collidableManager;
 
     public EnemyEntityManager(IEnemyDao dao, IEnemyConfig config, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(dao, "dao");
+        Assert.isNotNull(config, "config");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _dao = dao;
         _config = config;
         _collidableManager = collidableManager;

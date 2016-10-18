@@ -8,6 +8,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.data.model.IVector;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class PlayerEntityManager implements IPlayerEntityManager {
 
@@ -18,6 +19,12 @@ public class PlayerEntityManager implements IPlayerEntityManager {
     private final ITimerEntityManager _timerManager;
 
     public PlayerEntityManager(IPlayerDao dao, IPlayerConfig config, ICollidableEntityManager collidableManager, IWeaponEntityManager weaponManager, ITimerEntityManager timerManager) {
+        Assert.isNotNull(dao, "dao");
+        Assert.isNotNull(config, "config");
+        Assert.isNotNull(collidableManager, "collidableManager");
+        Assert.isNotNull(weaponManager, "weaponManger");
+        Assert.isNotNull(timerManager, "timerManager");
+
         _dao = dao;
         _config = config;
         _collidableManager = collidableManager;

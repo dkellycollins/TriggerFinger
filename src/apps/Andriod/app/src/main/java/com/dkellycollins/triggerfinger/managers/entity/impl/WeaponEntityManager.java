@@ -5,6 +5,7 @@ import com.dkellycollins.triggerfinger.data.daos.IWeaponDao;
 import com.dkellycollins.triggerfinger.data.entity.IWeapon;
 import com.dkellycollins.triggerfinger.managers.entity.ITimerEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IWeaponEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class WeaponEntityManager implements IWeaponEntityManager {
 
@@ -13,6 +14,10 @@ public class WeaponEntityManager implements IWeaponEntityManager {
     private final ITimerEntityManager _timerManager;
 
     public WeaponEntityManager(IWeaponDao dao, IBulletConfig bulletConfig, ITimerEntityManager timerManager) {
+        Assert.isNotNull(dao, "dao");
+        Assert.isNotNull(bulletConfig, "bulletConfig");
+        Assert.isNotNull(timerManager, "timerManager");
+
         _dao = dao;
         _bulletConfig = bulletConfig;
         _timerManager = timerManager;

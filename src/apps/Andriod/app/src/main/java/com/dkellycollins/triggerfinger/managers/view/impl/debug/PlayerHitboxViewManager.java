@@ -6,6 +6,7 @@ import com.dkellycollins.triggerfinger.data.entity.ICollidable;
 import com.dkellycollins.triggerfinger.data.entity.IPlayer;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,9 @@ public class PlayerHitboxViewManager extends BaseHitboxViewManager {
     private final ICollidableEntityManager _collidableManager;
 
     public PlayerHitboxViewManager(IPlayerEntityManager playerManager, ICollidableEntityManager collidableManager) {
+        Assert.isNotNull(playerManager, "playerManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
+
         _playerManager = playerManager;
         _collidableManager = collidableManager;
     }

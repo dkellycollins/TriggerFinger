@@ -11,6 +11,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IBitmapEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.ICollidableEntityManager;
 import com.dkellycollins.triggerfinger.managers.entity.IEnemyEntityManager;
 import com.dkellycollins.triggerfinger.managers.view.IViewManager;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class EnemyViewManager extends BaseSpriteViewManager implements IViewManager {
 
@@ -20,6 +21,10 @@ public class EnemyViewManager extends BaseSpriteViewManager implements IViewMana
 
     public EnemyViewManager(IEnemyConfig enemyConfig, IBitmapEntityManager bitmapManager, IEnemyEntityManager enemyManager, ICollidableEntityManager collidableManager) {
         super(bitmapManager);
+
+        Assert.isNotNull(enemyConfig, "enemyConfig");
+        Assert.isNotNull(enemyManager, "enemyManager");
+        Assert.isNotNull(collidableManager, "collidableManager");
 
         _enemyConfig = enemyConfig;
         _enemyManager = enemyManager;

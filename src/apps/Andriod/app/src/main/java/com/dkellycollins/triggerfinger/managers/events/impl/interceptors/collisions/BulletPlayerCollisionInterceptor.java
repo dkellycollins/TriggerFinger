@@ -7,6 +7,7 @@ import com.dkellycollins.triggerfinger.managers.entity.IPlayerEntityManager;
 import com.dkellycollins.triggerfinger.managers.events.IEventInterceptor;
 import com.dkellycollins.triggerfinger.managers.events.IEvent;
 import com.dkellycollins.triggerfinger.managers.events.impl.events.CollisionEvent;
+import com.dkellycollins.triggerfinger.util.qa.Assert;
 
 public class BulletPlayerCollisionInterceptor implements IEventInterceptor {
 
@@ -14,6 +15,9 @@ public class BulletPlayerCollisionInterceptor implements IEventInterceptor {
     private final IPlayerEntityManager _playerManager;
 
     public BulletPlayerCollisionInterceptor(IBulletEntityManager bulletManager, IPlayerEntityManager playerManager) {
+        Assert.isNotNull(bulletManager, "bullerManager");
+        Assert.isNotNull(playerManager, "playerManager");
+
         _bulletManager = bulletManager;
         _playerManager = playerManager;
     }

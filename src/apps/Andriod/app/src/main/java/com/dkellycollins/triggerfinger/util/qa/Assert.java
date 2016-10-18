@@ -7,7 +7,7 @@ public class Assert {
      * @param value The value to check.
      * @param name The argument name of the value.
      */
-    public static void isNotNull(Object value, String name) {
+    public static <T> void isNotNull(T value, String name) {
         if(value == null) {
             throw new IllegalArgumentException(String.format("Value [%1] cannot be null.", name));
         }
@@ -18,8 +18,7 @@ public class Assert {
      * @param value The value to check.
      * @param name The argument name of the value.
      */
-    public static void isNotNullOrEmpty(String value, String name)
-    {
+    public static void isNotNullOrEmpty(String value, String name) {
         isNotNull(value, name);
         if(value.length() == 0) {
             throw new IllegalArgumentException(String.format("Value [%1] cannot be empty.", name));
